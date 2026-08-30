@@ -1,4 +1,8 @@
 {
   "hello": "Hello" ,
-  "welcome": "Welcome back"
+  "welcome": "Welcome back",
+  "pickAvatar": "Pick Avatar",
+  "resetPassword": "Reset Password",
+  "deleteAccount": "Delete Account",
+  "updateData": "Update Data"
 }
