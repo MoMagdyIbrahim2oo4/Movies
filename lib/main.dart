@@ -19,10 +19,7 @@ void main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: DevicePreview(
-        enabled: true,
-        builder: (context) => const MyApp(),
-      ),
+      child: DevicePreview(enabled: true, builder: (context) => const MyApp()),
     ),
   );
 }
@@ -51,7 +48,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.forgetPasswordScreen: (context) => ForgetPasswordScreen(),
             AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
           },
-          initialRoute: AppRoutes.updateProfileScreen,
+          initialRoute: AppRoutes.onboardingScreen,
           darkTheme: DarkTheme.dark,
           themeMode: ThemeMode.dark,
         );
@@ -59,5 +56,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
