@@ -56,9 +56,12 @@ class OnboardingCardPage extends StatelessWidget {
               width: double.infinity,
               child: CustomElevatedButton(
                 onpressed: onNext,
-                label: item.buttonTextKey.tr(),
-                style: theme.textTheme.bodyMedium!,
+
                 backGroundColor: theme.colorScheme.onSecondary,
+                child: Text(
+                  item.buttonTextKey.tr(),
+                  style: theme.textTheme.bodyMedium!,
+                ),
               ),
             ),
 
@@ -69,14 +72,17 @@ class OnboardingCardPage extends StatelessWidget {
                 width: double.infinity,
                 child: CustomElevatedButton(
                   onpressed: onBack,
-                  label: 'back'.tr(),
-                  style: theme.textTheme.bodyMedium!.copyWith(
-                    color: theme.colorScheme.onSecondary,
-                  ),
+
                   backGroundColor: Colors.transparent,
                   side: BorderSide(
                     width: 2,
                     color: theme.colorScheme.onSecondary,
+                  ),
+                  child: Text(
+                    'back'.tr(),
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      color: theme.colorScheme.onSecondary,
+                    ),
                   ),
                 ),
               ),
