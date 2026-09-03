@@ -37,38 +37,36 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.r),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: .stretch,
-            spacing: 20.h,
-            children: [
-              Center(child: InkWell(
-                onTap: (){
-                  showAvatarsSheet(context,onAvatarClicked,avatars,avatar);
-                },
-                  child: Image.asset(avatar.avatarPath))),
-              CustomTextFormField(prefixIcon: Icon(Icons.person)),
-              CustomTextFormField(prefixIcon: Icon(Icons.phone)),
-              Text(
-                "resetPassword".tr(),
-                style: Theme.of(context).textTheme.labelMedium,
+        child: Column(
+          crossAxisAlignment: .stretch,
+          spacing: 20.h,
+          children: [
+            Center(child: InkWell(
+              onTap: (){
+                showAvatarsSheet(context,onAvatarClicked,avatars,avatar);
+              },
+                child: Image.asset(avatar.avatarPath))),
+            CustomTextFormField(prefixIcon: Icon(Icons.person)),
+            CustomTextFormField(prefixIcon: Icon(Icons.phone)),
+            Text(
+              "resetPassword".tr(),
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            Spacer(),
+            CustomElevatedButton(
+              onpressed: () {},
+              backGroundColor: AppColors.crimson,
+              child: Text( "deleteAccount".tr(),
+                style: Theme.of(context).textTheme.labelMedium!,
               ),
-              Spacer(),
-              CustomElevatedButton(
-                onpressed: () {},
-                backGroundColor: AppColors.crimson,
-                child: Text( "deleteAccount".tr(),
-                  style: Theme.of(context).textTheme.labelMedium!,
-                ),
+            ),
+            CustomElevatedButton(
+              onpressed: () {},
+              child: Text( "updateData".tr(),
+                style: Theme.of(context).textTheme.labelLarge!,
               ),
-              CustomElevatedButton(
-                onpressed: () {},
-                child: Text( "updateData".tr(),
-                  style: Theme.of(context).textTheme.labelLarge!,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
