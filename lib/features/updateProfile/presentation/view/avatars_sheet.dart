@@ -3,7 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/avater_model.dart';
 import 'package:movies/features/updateProfile/presentation/widget/avatar_holder.dart';
 
-showAvatarsSheet(BuildContext context,void Function(AvatarModel)onAvatarClicked,List<AvatarModel>avatars,AvatarModel currentAvatar) {
+Future<dynamic> showAvatarsSheet(BuildContext context,void Function(AvatarModel)onAvatarClicked,List<AvatarModel>avatars,AvatarModel currentAvatar) {
 
 
   return showModalBottomSheet(

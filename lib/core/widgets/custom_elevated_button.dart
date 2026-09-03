@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final void Function() onpressed;
-  final String label;
-  final TextStyle style;
+  final Widget child ;
   final Color? backGroundColor;
-  final BorderSide? side;
 
   const CustomElevatedButton({
     super.key,
     required this.onpressed,
-    required this.label,
-    required this.style,
-    this.backGroundColor,
-    this.side,
+    required this.child,
+    this.backGroundColor
   });
 
   @override
@@ -21,11 +17,9 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onpressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backGroundColor,
-        side: side,
+        backgroundColor: backGroundColor
       ),
-
-      child: Text(label, style: style),
+      child: child ,
     );
   }
 }
