@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies/core/routing/app_routes.dart';
+import 'package:movies/features/onboarding/data/services/onboarding_prefs.dart';
 import 'package:movies/features/onboarding/presentation/widgets/onboarding_card_page.dart';
 import 'package:movies/features/onboarding/presentation/widgets/onboarding_first_page.dart';
 import '../../data/models/onboarding_item_model.dart';
@@ -21,7 +23,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void _goNext() {
     if (_isLastPage) {
-      // TODO: navigate to login
+      OnboardingPrefs.setHasSeenOnboarding();
+      Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
     } else {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 200),
