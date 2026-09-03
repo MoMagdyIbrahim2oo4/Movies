@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:movies/core/constants/app_avatars.dart';
 import 'package:movies/core/constants/app_colors.dart';
 import 'package:movies/core/models/avater_model.dart';
 import 'package:movies/core/widgets/custom_elevated_button.dart';
@@ -9,7 +8,7 @@ import 'package:movies/core/widgets/custom_text_form_field.dart';
 import 'package:movies/features/updateProfile/presentation/view/avatars_sheet.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  UpdateProfileScreen({super.key});
+  const UpdateProfileScreen({super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
@@ -56,14 +55,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             Spacer(),
             CustomElevatedButton(
               onpressed: () {},
-              label: "deleteAccount".tr(),
-              style: Theme.of(context).textTheme.labelMedium!,
               backGroundColor: AppColors.crimson,
+              child: Text( "deleteAccount".tr(),
+                style: Theme.of(context).textTheme.labelMedium!,
+              ),
             ),
             CustomElevatedButton(
               onpressed: () {},
-              label: "updateData".tr(),
-              style: Theme.of(context).textTheme.labelLarge!,
+              child: Text( "updateData".tr(),
+                style: Theme.of(context).textTheme.labelLarge!,
+              ),
             ),
           ],
         ),

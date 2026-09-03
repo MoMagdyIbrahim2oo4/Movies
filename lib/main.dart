@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.forgetPasswordScreen: (context) => ForgetPasswordScreen(),
             AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
           },
-          initialRoute: AppRoutes.updateProfileScreen,
+          initialRoute: AppRoutes.loginScreen ,
           darkTheme: DarkTheme.dark,
           themeMode: ThemeMode.dark,
         );
