@@ -28,11 +28,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Icon(
-            Icons.arrow_back_sharp , 
-            color: Color(0xffF6BD00) ,
+            Icons.arrow_back_sharp ,
           ),
         ),
-        title: Text( "register".tr() ,
+        title: Text( "forget_password".tr() ,
           style: GoogleFonts.roboto(
             fontSize: 16.sp ,
             fontWeight: .w400

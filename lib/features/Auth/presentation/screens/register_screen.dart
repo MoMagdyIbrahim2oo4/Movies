@@ -160,12 +160,12 @@ class _RegisterScreen extends State<RegisterScreen> {
                           suffixIcon: InkWell(
                             onTap: (){
                               setState(() {
-                                isSecurePassword == true ? isSecurePassword = false : isSecurePassword = true ;
+                                isSecurePassword=!isSecurePassword;
                               });
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(AppIcons.hidePassword ),
+                              child: isSecurePassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
                             ) ,
                           ) , 
                           isObscure : isSecurePassword ,
@@ -188,13 +188,12 @@ class _RegisterScreen extends State<RegisterScreen> {
                           suffixIcon: InkWell(
                             onTap: (){
                               setState(() {
-                                isSecureConfirmPassword == true ? 
-                                isSecureConfirmPassword = false : isSecureConfirmPassword = true ;
+                                isSecureConfirmPassword=!isSecureConfirmPassword;
                               });
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(AppIcons.hidePassword ),
+                              child: isSecureConfirmPassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
                             ) ,
                           ) , 
                           isObscure : isSecureConfirmPassword ,

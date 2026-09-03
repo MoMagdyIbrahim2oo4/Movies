@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies/core/routing/app_routes.dart';
+import 'package:movies/features/onboarding/data/models/onboarding_item_model.dart';
 import 'package:movies/features/onboarding/data/services/onboarding_prefs.dart';
 import 'package:movies/features/onboarding/presentation/widgets/onboarding_card_page.dart';
 import 'package:movies/features/onboarding/presentation/widgets/onboarding_first_page.dart';
-import '../../data/models/onboarding_item_model.dart';
+
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
