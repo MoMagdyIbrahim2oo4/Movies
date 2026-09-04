@@ -58,10 +58,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               padding: EdgeInsets.symmetric( horizontal: 16.w ),
               child: Column(
                 children: [
-                  SizedBox(
-                  height: 161.h ,
-                    child: AvatarPageview() ,
-                  ) ,
+                  AvatarPageview() ,
                   Text( "avatar".tr() , style: AppTextStyles.regular16White ) ,
                   SizedBox( height: 12.h ,) ,
                   Form(
