@@ -7,15 +7,15 @@ class DarkTheme {
   static final ThemeData dark = ThemeData(
     scaffoldBackgroundColor: AppColors.darkGray,
     colorScheme: ColorScheme(
-        brightness: Brightness.dark,
-        primary: AppColors.darkGray,
-        onPrimary: AppColors.crimson,
-        secondary: AppColors.white,
-        onSecondary: AppColors.amber,
-        error: Colors.red,
-        onError: AppColors.amberWithOpacity,
-        surface: AppColors.darkCharcoalGray,
-        onSurface: Colors.transparent
+      brightness: Brightness.dark,
+      primary: AppColors.darkGray,
+      onPrimary: AppColors.crimson,
+      secondary: AppColors.white,
+      onSecondary: AppColors.amber,
+      error: Colors.red,
+      onError: AppColors.amberWithOpacity,
+      surface: AppColors.darkCharcoalGray,
+      onSurface: Colors.transparent,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.darkGray,
@@ -25,7 +25,10 @@ class DarkTheme {
     textTheme: TextTheme(
       labelSmall: AppTextStyles.regular16Amber,
       labelMedium: AppTextStyles.regular20White,
-      labelLarge: AppTextStyles.regular20DarkGray
+      labelLarge: AppTextStyles.regular20DarkGray,
+      headlineLarge: AppTextStyles.bold24White,
+      bodyMedium: AppTextStyles.semiBold20DarkGray,
+      displayLarge: AppTextStyles.medium40White,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -42,24 +45,14 @@ class DarkTheme {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(
-          color: Colors.red,
-          width: 1.2,
-        ),
+        borderSide: const BorderSide(color: Colors.red, width: 1.2),
       ),
 
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(
-          color: Colors.red,
-          width: 1.5,
-        ),
+        borderSide: const BorderSide(color: Colors.red, width: 1.5),
       ),
-      prefixIconConstraints: BoxConstraints(
-        minWidth: 40.w,
-        minHeight: 24.h,
-
-      ),
+      prefixIconConstraints: BoxConstraints(minWidth: 40.w, minHeight: 24.h),
       prefixIconColor: AppColors.white,
       suffixIconColor: AppColors.white,
     ),

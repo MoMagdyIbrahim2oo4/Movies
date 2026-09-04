@@ -71,12 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           suffixIcon: InkWell(
                             onTap: (){
                               setState(() {
-                                isSecure == true ? isSecure = false : isSecure = true ;
+                                isSecure=!isSecure;
                               });
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(AppIcons.hidePassword ),
+                              child: isSecure?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
                             ) ,
                           ) , 
                           isObscure : isSecure ,
