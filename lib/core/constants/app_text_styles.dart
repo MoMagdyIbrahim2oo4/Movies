@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/core/constants/app_colors.dart';
+
 class AppTextStyles {
   static final TextStyle regular14White = GoogleFonts.roboto(
     color: AppColors.white,
