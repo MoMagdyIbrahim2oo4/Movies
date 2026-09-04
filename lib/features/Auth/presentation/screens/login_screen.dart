@@ -2,12 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/core/constants/app_images.dart';
+import 'package:movies/core/constants/app_text_styles.dart';
 import 'package:movies/core/routing/app_routes.dart';
 import 'package:movies/core/widgets/custom_elevated_button.dart';
 import 'package:movies/core/widgets/custom_text_form_field.dart';
+import 'package:movies/features/Auth/utilities/form_validation.dart';
 import 'package:movies/features/Auth/widgets/language_toggle.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,9 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: 121.w ,
                     height: 118.h ,
-                    child: Image( 
-                      image: AssetImage(AppImages.appLogo ) ,
-                    )
+                    child: Image( image: AssetImage(AppImages.appLogo ) , ) ,
                   ),
                   SizedBox( height: 69.h , ) ,
                   Form(
@@ -61,18 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: SvgPicture.asset(AppIcons.emailIcon),
                           ) , 
                           controller: emailController ,
-                          validator: (value){
-                            final RegExp emailRegex = RegExp( r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' );
-                            if ( value == null || value.isEmpty ) {
-                              return "empty_email_hint".tr() ;
-                            }
-                            else if ( ! emailRegex.hasMatch(value.trim()) ) {
-                              return "invalid_email_hint".tr() ;
-                            }
-                            else {
-                              return null ;
-                            }
-                          },
+                          validator: (value) => FormValidation.emailValidation(value) ,
                         ) , 
                         SizedBox( height: 16.h ,) ,
                         CustomTextFormField( hintText: "password".tr() , 
@@ -93,14 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ) , 
                           isObscure : isSecure ,
                           controller: passwordController ,
-                          validator: (value){
-                            if ( value == null || value.isEmpty ) {
-                              return "empty_password_hint".tr() ;
-                            }
-                            else {
-                              return null ;
-                            }
-                          },
+                          validator: (value) => FormValidation.passwordValidation(value) ,
                         ) , 
                         SizedBox( height: 8.h ,) ,
                         Align(
@@ -112,24 +93,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AppRoutes.forgetPasswordScreen , 
                               ) ;
                             },
-                            child: Text( "forget_password_hint".tr() ,
-                              style: GoogleFonts.roboto(
-                                color: Color(0xffF6BD00) ,
-                                fontSize: 14.sp ,
-                                fontWeight: .w400
-                              ) ,
-                            ),
+                            child: Text( "forget_password_hint".tr() , style: AppTextStyles.regular14Amber , ),
                           ),
                         ),
                         SizedBox( height: 33.h ,) ,
                         CustomElevatedButton( 
                           child: 
-                          Text( "login".tr() , 
-                            style: GoogleFonts.roboto(
-                              fontSize: 20.sp , 
-                              fontWeight: .w400 ,
-                            ) ,
-                          ),
+                          Text( "login".tr() , style: AppTextStyles.regular20DarkGray , ),
                           onpressed: (){
                             if ( formKey.currentState!.validate() ) {
                                 Navigator.of(context).pushReplacementNamed(AppRoutes.updateProfileScreen) ;
@@ -141,24 +111,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: .center ,
                           textDirection: context.locale.languageCode == 'ar' ? .rtl : .ltr ,
                           children: [
-                            Text("don't_have_account".tr() , 
-                              style: GoogleFonts.roboto(
-                                color: Colors.white ,
-                                fontSize: 14.sp ,
-                                fontWeight: .w400
-                              ) ,
-                            ) ,
+                            Text("don't_have_account".tr() , style: AppTextStyles.regular14White , ) ,
                             InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, AppRoutes.registerScreen ) ;
-                              },
-                              child: Text( "create_one".tr() ,
-                                style: GoogleFonts.roboto(
-                                color: Color(0xffF6BD00) ,
-                                fontSize: 14.sp ,
-                                fontWeight: .w900
-                              )  ,
-                              ),
+                              onTap: () => Navigator.pushNamed(context, AppRoutes.registerScreen ) ,
+                              child: Text( "create_one".tr() , style: AppTextStyles.regular14Amber , ),
                             ),
                           ],
                         ) ,
@@ -174,14 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              'or'.tr() ,
-                              style: GoogleFonts.roboto(
-                                color: const Color(0xffF6BD00) ,
-                                fontSize: 15.sp ,
-                                fontWeight: .w400 
-                              ) ,
-                            ),
+                            child: Text( 'or'.tr() , style: AppTextStyles.regular14Amber , ),
                           ),
                           const Expanded(
                             child: Divider(
@@ -202,11 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               SvgPicture.asset( AppIcons.googleIcon ) ,
                               SizedBox( width: 11.w ,) ,
-                              Text( "login_with_google".tr() , 
-                                style: GoogleFonts.roboto(
-                                  
-                              ),
-                              ) ,
+                              Text( "login_with_google".tr() , style: AppTextStyles.regular16DarkGray , ) ,
                             ],
                           ),
                         ) ,
