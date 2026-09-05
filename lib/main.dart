@@ -7,6 +7,7 @@ import 'package:movies/core/theme/dark_theme.dart';
 import 'package:movies/features/Auth/presentation/screens/forget_password_screen.dart';
 import 'package:movies/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movies/features/Auth/presentation/screens/register_screen.dart';
+import 'package:movies/features/main/presentation/screens/main_layout_screen.dart';
 import 'package:movies/features/onboarding/data/services/onboarding_prefs.dart';
 import 'package:movies/features/onboarding/presentation/screens/on_boarding_screen.dart';
 import 'package:movies/features/updateProfile/presentation/screens/update_profile_screen.dart';
@@ -57,8 +58,10 @@ class MyApp extends StatelessWidget {
             AppRoutes.registerScreen: (context) => RegisterScreen(),
             AppRoutes.forgetPasswordScreen: (context) => ForgetPasswordScreen(),
             AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
+            AppRoutes.mainLayoutScreen: (context) => MainLayoutScreen(),
           },
-          initialRoute: initialRoute,
+          initialRoute: AppRoutes.mainLayoutScreen,
+          // initialRoute,
           darkTheme: DarkTheme.dark,
           themeMode: ThemeMode.dark,
         );
