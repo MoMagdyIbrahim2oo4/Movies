@@ -42,5 +42,6 @@
   "create_account": "إنشاء حساب",
   "already_have_account": "لديك حساب بالفعل ؟ ",
   "verify_email": "تأكيد البريد الإلكتروني",
-  "forget_password": "نسيت كلمة المرور"
+  "forget_password": "نسيت كلمة المرور",
+  "search":"ابحث"
 }

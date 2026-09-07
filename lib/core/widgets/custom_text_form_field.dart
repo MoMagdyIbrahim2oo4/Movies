@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final void Function(String)? onChanged;
 
   const CustomTextFormField({
     super.key,
@@ -21,13 +22,15 @@ class CustomTextFormField extends StatelessWidget {
     this.hintText,
     this.labelText,
     this.prefixIcon,
-    this.suffixIcon
+    this.suffixIcon,
+    this.onChanged
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      onChanged: onChanged,
       style: Theme.of(context).textTheme.labelMedium,
       validator: validator,
       obscureText: isObscure,
