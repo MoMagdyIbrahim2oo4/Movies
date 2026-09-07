@@ -33,7 +33,7 @@ class DarkTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkCharcoalGray,
-      contentPadding: EdgeInsetsGeometry.symmetric(vertical: 20.h),
+      // contentPadding: EdgeInsetsGeometry.symmetric(vertical: 20.h),
       hintStyle: AppTextStyles.regular16White,
       labelStyle: AppTextStyles.regular16White,
 
@@ -60,7 +60,7 @@ class DarkTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.amber,
         foregroundColor: AppColors.darkGray,
-        padding: EdgeInsetsGeometry.symmetric(vertical: 16.h),
+        // padding: EdgeInsetsGeometry.symmetric(vertical: 16.h),
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadiusGeometry.circular(15.r),
         ),

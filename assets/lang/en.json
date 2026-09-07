@@ -42,5 +42,6 @@
   "create_account": "Create Account",
   "already_have_account": "Already Have Account ? ",
   "verify_email": "Verify Email",
-  "forget_password": "Forget Password"
+  "forget_password": "Forget Password",
+  "search":"Search"
 }

@@ -8,4 +8,7 @@ class AppImages {
   static const String movie1917='${_initialPath}movie1917.png';
   static const String moviesPosters='${_initialPath}moviesposters.png';
   static const String openheimer='${_initialPath}oppenheimer.png';
+  static const String emptyMovies='${_initialPath}empty_movies.png';
+  static const String civilWar='${_initialPath}civil_war.png';
+  static const String star='${_initialPath}star.png';
 }
