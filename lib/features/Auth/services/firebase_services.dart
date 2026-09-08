@@ -116,7 +116,11 @@ class FirebaseService {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) return null;
       
-      final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get()
+          .timeout(const Duration(seconds: 10));
       return doc.data();
     } catch (e) {
       return null;

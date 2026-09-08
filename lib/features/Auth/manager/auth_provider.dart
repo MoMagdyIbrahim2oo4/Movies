@@ -59,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
 
       if (context.mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil(
-          AppRoutes.updateProfileScreen ,
+          AppRoutes.mainLayoutScreen ,
           (_) => false,
 );
       }
