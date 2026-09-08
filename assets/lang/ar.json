@@ -48,5 +48,9 @@
   "edit_profile": "تعديل الملف الشخصي",
   "exit": "خروج",
   "watch_list": "قائمة المشاهدة",
-  "search":"بحث"
+  "search":"بحث",
+  "Action": "أكشن",
+  "Adventure": "مغامرة",
+  "Animation": "رسوم متحركة",
+  "Biography": "سيرة ذاتية"
 }

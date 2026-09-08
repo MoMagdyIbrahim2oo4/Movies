@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
             AppRoutes.mainLayoutScreen: (context) => MainLayoutScreen(),
           },
-          initialRoute: AppRoutes.mainLayoutScreen,
+          initialRoute: AppRoutes.loginScreen,
           // initialRoute,
           darkTheme: DarkTheme.dark,
           themeMode: ThemeMode.dark,

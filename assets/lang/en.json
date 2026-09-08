@@ -48,6 +48,10 @@
   "edit_profile": "Edit Profile",
   "exit": "Exit",
   "watch_list" : "Watch List",
-  "search":"search"
+  "search":"search",
+  "Action": "Action",
+  "Adventure": "Adventure",
+  "Animation": "Animation",
+  "Biography": "Biography"
 
 }

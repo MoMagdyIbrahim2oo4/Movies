@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/features/browse/presentation/view/categories_grid_view.dart';
@@ -12,10 +13,10 @@ class BrowseScreen extends StatefulWidget {
 
 class _BrowseScreenState extends State<BrowseScreen> {
   final List<String> categories = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Biography',
+    'Action'.tr(),
+    'Adventure'.tr(),
+    'Animation'.tr(),
+    'Biography'.tr(),
   ];
 
   int selectedindex = 0;
