@@ -42,7 +42,7 @@
   "create_account": "إنشاء حساب",
   "already_have_account": "لديك حساب بالفعل ؟ ",
   "verify_email": "تأكيد البريد الإلكتروني",
-  "forget_password": "نسيت كلمة المرور",
+  "forget_password": "نسيت كلمة المرور" ,
   "check_your_email": "تحقق من بريدك الإلكتروني لرابط إعادة تعيين كلمة المرور",
   "profile_updated_successfully": "تم تحديث الملف الشخصي بنجاح",
   "account_deleted_successfully": "تم حذف الحساب بنجاح",
@@ -52,5 +52,15 @@
   "email_already_in_use": "الحساب موجود بالفعل بهذا البريد الإلكتروني.",
   "invalid_email_or_password": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "no_user_signed_in": "لا يوجد مستخدم مسجل الدخول حالياً.",
-  "requires_recent_login": "يجب عليك تسجيل الدخول مرة أخرى قبل حذف حسابك."
+  "requires_recent_login": "يجب عليك تسجيل الدخول مرة أخرى قبل حذف حسابك." ,
+  "wishlist": "قائمة الرغبات",
+  "history": "السجل",
+  "edit_profile": "تعديل الملف الشخصي",
+  "exit": "خروج",
+  "watch_list": "قائمة المشاهدة",
+  "search":"بحث",
+  "Action": "أكشن",
+  "Adventure": "مغامرة",
+  "Animation": "رسوم متحركة",
+  "Biography": "سيرة ذاتية"
 }

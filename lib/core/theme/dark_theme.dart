@@ -29,11 +29,13 @@ class DarkTheme {
       headlineLarge: AppTextStyles.bold24White,
       bodyMedium: AppTextStyles.semiBold20DarkGray,
       displayLarge: AppTextStyles.medium40White,
+      displaySmall: AppTextStyles.bold20Amber,
+      displayMedium: AppTextStyles.bold20Black,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkCharcoalGray,
-      contentPadding: EdgeInsetsGeometry.symmetric(vertical: 20.h),
+      // contentPadding: EdgeInsetsGeometry.symmetric(vertical: 20.h),
       hintStyle: AppTextStyles.regular16White,
       labelStyle: AppTextStyles.regular16White,
 

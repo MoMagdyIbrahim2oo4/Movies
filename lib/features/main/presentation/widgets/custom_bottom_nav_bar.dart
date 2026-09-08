@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies/core/constants/app_Icons.dart';
+import 'package:movies/core/constants/app_icons.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;

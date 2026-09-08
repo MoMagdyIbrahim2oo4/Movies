@@ -9,4 +9,5 @@ class AppColors {
   static const Color crimson=Color(0xFFE82626);
   static const Color red = Color(0xFFF44336) ;
   static const Color green = Color(0xFF4CAF50) ;
+  static const Color black = Color(0xFF000000);
 }

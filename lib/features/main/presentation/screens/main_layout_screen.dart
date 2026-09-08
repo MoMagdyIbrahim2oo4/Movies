@@ -34,6 +34,7 @@ class _MainLayoutState extends State<MainLayoutScreen> {
     final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: theme.scaffoldBackgroundColor,
         body: Stack(
           children: [

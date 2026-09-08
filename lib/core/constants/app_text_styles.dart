@@ -63,4 +63,16 @@ class AppTextStyles {
     fontSize: 24.sp,
     fontWeight: FontWeight.w700,
   );
+
+  static final TextStyle bold20Black = GoogleFonts.roboto(
+    color: AppColors.black,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+  );
+
+  static final TextStyle bold20Amber = GoogleFonts.roboto(
+    color: AppColors.amber,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w700,
+  );
 }

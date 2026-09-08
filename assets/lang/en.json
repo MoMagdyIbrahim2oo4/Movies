@@ -42,7 +42,7 @@
   "create_account": "Create Account",
   "already_have_account": "Already Have Account ? ",
   "verify_email": "Verify Email",
-  "forget_password": "Forget Password",
+  "forget_password": "Forget Password" ,
   "check_your_email": "Check your email for password reset link",
   "profile_updated_successfully": "Profile updated successfully",
   "account_deleted_successfully": "Account deleted successfully",
@@ -52,5 +52,15 @@
   "email_already_in_use": "The account already exists for that email.",
   "invalid_email_or_password": "Invalid email or password.",
   "no_user_signed_in": "No user is currently signed in.",
-  "requires_recent_login": "You must log in again before deleting your account."
+  "requires_recent_login": "You must log in again before deleting your account." ,
+  "wishlist": "Wish List",
+  "history": "History",
+  "edit_profile": "Edit Profile",
+  "exit": "Exit",
+  "watch_list" : "Watch List",
+  "search":"search",
+  "Action": "Action",
+  "Adventure": "Adventure",
+  "Animation": "Animation",
+  "Biography": "Biography"
 }
