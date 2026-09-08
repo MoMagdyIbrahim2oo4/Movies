@@ -1,38 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies/core/constants/app_Icons.dart';
-import 'package:movies/core/constants/app_images.dart';
+import 'package:movies/core/models/movie_model.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({super.key});
+  final Movie movie;
+
+  const MovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.civilWar),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(16.r)),
-      ),
+    final theme = Theme.of(context);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16.r),
       child: Stack(
         children: [
-          Positioned(
-            left: 13.w,
+          Positioned.fill(
+            child: Image.network(
+              movie.posterUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Container(color: theme.colorScheme.surface),
+            ),
+          ),
+          PositionedDirectional(
             top: 13.h,
+            start: 10.w,
             child: Container(
-              padding: EdgeInsets.all(8.r),
+              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 4.h),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                color: theme.colorScheme.primary.withAlpha(181),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("7.7", style: Theme.of(context).textTheme.labelMedium),
-                  SizedBox(width: 5.w),
-                  Image.asset(AppImages.star),
+                  Text(
+                    '${movie.rating}',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  SizedBox(width: 4.w),
+                  Icon(
+                    Icons.star,
+                    color: theme.colorScheme.onSecondary,
+                    size: 14.r,
+                  ),
                 ],
               ),
             ),

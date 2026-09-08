@@ -47,5 +47,7 @@
   "history": "History",
   "edit_profile": "Edit Profile",
   "exit": "Exit",
-  "watch_list" : "Watch List"
+  "watch_list" : "Watch List",
+  "search":"search"
+
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/widgets/movie_card.dart';
 
 class MoviesGridVew extends StatelessWidget {
-  const MoviesGridVew({super.key});
+  MoviesGridVew({super.key});
+  final List<Movie> movies = Movie.movies;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class MoviesGridVew extends StatelessWidget {
         crossAxisSpacing: 20.w,
         mainAxisSpacing: 8.h,
       ),
-      itemBuilder: (context, index) => MovieCard(),
+      itemBuilder: (context, index) => MovieCard(movie: movies[index]),
     );
   }
 }

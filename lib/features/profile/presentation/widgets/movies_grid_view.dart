@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
-import 'package:movies/features/profile/presentation/widgets/movie_grid_item.dart';
+import 'package:movies/core/widgets/movie_card.dart';
 
 class MoviesGridView extends StatelessWidget {
   final List<Movie> movies;
@@ -19,7 +19,7 @@ class MoviesGridView extends StatelessWidget {
         childAspectRatio: 0.68,
       ),
       itemCount: movies.length,
-      itemBuilder: (context, index) => MovieGridItem(movie: movies[index]),
+      itemBuilder: (context, index) => MovieCard(movie: movies[index]),
     );
   }
 }

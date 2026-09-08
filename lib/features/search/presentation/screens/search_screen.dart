@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           Expanded(
             child: searchItem.isEmpty
-                ? Center(child: Image.asset(AppImages.emptyMovies))
+                ? Center(child: Image.asset(AppImages.empty))
                 : MoviesGridVew(),
           ),
         ],
