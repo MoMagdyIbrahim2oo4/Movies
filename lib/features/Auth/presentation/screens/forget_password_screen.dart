@@ -7,6 +7,9 @@ import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/core/constants/app_images.dart';
 import 'package:movies/core/widgets/custom_elevated_button.dart';
 import 'package:movies/core/widgets/custom_text_form_field.dart';
+import 'package:movies/features/Auth/manager/auth_provider.dart';
+import 'package:movies/features/Auth/widgets/circular_loading.dart';
+import 'package:provider/provider.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -23,6 +26,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of( context , listen: true ) ;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -39,55 +43,63 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         )  ,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsetsGeometry.symmetric( horizontal: 16 ) ,
-          child: Form(
-            key: formKey ,
-            child: Column(
-            
-              crossAxisAlignment: .stretch ,
-              spacing: 24.h ,
-              children: [
-                Image( 
-                  image: AssetImage(AppImages.forgetPassword) ,
-                  width: 332.1.w ,
-                  height: 251.89.h ,
-                ) ,
-                CustomTextFormField( hintText: "email".tr() ,
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                    child: SvgPicture.asset(AppIcons.emailIcon),
-                  ) , 
-                  controller: emailController ,
-                  validator: (value){
-                    final RegExp emailRegex = RegExp( r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' );
-                    if ( value == null || value.isEmpty ) {
-                      return "empty_email_hint".tr() ;
-                    }
-                    else if ( ! emailRegex.hasMatch(value.trim()) ) {
-                      return "invalid_email_hint".tr() ;
-                    }
-                    else {
-                      return null ;
-                    }
-                  },
-                ) , 
-                CustomElevatedButton( child: Text( "verify_email".tr() , 
-                    style: GoogleFonts.roboto(
-                      fontSize: 20.sp , 
-                      fontWeight: .w400 ,
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsetsGeometry.symmetric( horizontal: 16 ) ,
+              child: Form(
+                key: formKey ,
+                child: Column(
+                  crossAxisAlignment: .stretch ,
+                  spacing: 24.h ,
+                  children: [
+                    Image( 
+                      image: AssetImage(AppImages.forgetPassword) ,
+                      width: 332.1.w ,
+                      height: 251.89.h ,
                     ) ,
-                  ),
-                  onpressed: (){
-                    if ( formKey.currentState!.validate() ) {
-                      
-                    }
-                  } , 
-                ) ,
-              ],
+                    CustomTextFormField( hintText: "email".tr() ,
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                        child: SvgPicture.asset(AppIcons.emailIcon),
+                      ) , 
+                      controller: emailController ,
+                      validator: (value){
+                        final RegExp emailRegex = RegExp( r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' );
+                        if ( value == null || value.isEmpty ) {
+                          return "empty_email_hint".tr() ;
+                        }
+                        else if ( ! emailRegex.hasMatch(value.trim()) ) {
+                          return "invalid_email_hint".tr() ;
+                        }
+                        else {
+                          return null ;
+                        }
+                      },
+                    ) , 
+                    CustomElevatedButton(
+                      onpressed: authProvider.isLoading
+                          ? null
+                          : (){
+                              if ( formKey.currentState!.validate() ) {
+                                authProvider.forgetPassword( context: context , email: emailController.text ) ;
+                              }
+                            } , 
+                      child: Text( "verify_email".tr() , 
+                        style: GoogleFonts.roboto(
+                          fontSize: 20.sp , 
+                          fontWeight: .w400 ,
+                        ) ,
+                      ),
+                    ) ,
+                  ],
+                ),
+              ),
             ),
-          ),
-        )
+            if (authProvider.isLoading)
+              CircularLoading(),
+          ],
+        ),
       ),
     );
   }

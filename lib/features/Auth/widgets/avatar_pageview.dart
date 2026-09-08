@@ -3,8 +3,8 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/constants/app_avatars.dart';
 
 class AvatarPageview extends StatefulWidget {
-  const AvatarPageview({super.key});
-
+  const AvatarPageview({super.key, required this.onAvatarChanged});
+  final Function(String) onAvatarChanged ;
   @override
   State<AvatarPageview> createState() => _AvatarPageviewState();
 }
@@ -33,6 +33,8 @@ class _AvatarPageviewState extends State<AvatarPageview> {
         onPageChanged: (index) {
           setState(() {
             currentAvatar = index ;
+            final realIndex = index % avatars.length;
+            widget.onAvatarChanged( avatars[realIndex] ) ;
           });
         },
         itemBuilder: (context , index ) {

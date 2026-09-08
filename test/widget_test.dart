@@ -1,30 +1,31 @@
-// This is a basic Flutter widget test.
+// Basic smoke test to verify the app widget tree builds without errors.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Firebase and SharedPreferences calls are bypassed by passing pre-resolved
+// values directly, so this test runs without any native plugins.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:movies/main.dart';
+import 'package:provider/provider.dart';
+import 'package:movies/features/Auth/manager/auth_provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp(initialRoute: ""));
+  testWidgets('MyApp builds without throwing', (WidgetTester tester) async {
+    // Provide the same wrapper that main() provides so Provider is available.
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthProvider>(
+            create: (_) => AuthProvider(),
+          ),
+        ],
+        // Pass hasSeenOnboarding: false so AuthWrapper renders OnBoardingScreen,
+        // which does NOT require Firebase or an active auth state.
+        child: MyApp(hasSeenOnboarding: false),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // If the widget tree built without throwing, the test passes.
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }

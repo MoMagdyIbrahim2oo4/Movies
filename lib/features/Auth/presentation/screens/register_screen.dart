@@ -2,15 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies/core/constants/app_avatars.dart';
 import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/core/constants/app_text_styles.dart';
 import 'package:movies/core/widgets/custom_elevated_button.dart';
 import 'package:movies/core/widgets/custom_text_form_field.dart';
+import 'package:movies/features/Auth/manager/auth_provider.dart';
 import 'package:movies/features/Auth/utilities/form_validation.dart';
 import 'package:movies/features/Auth/widgets/avatar_pageview.dart';
+import 'package:movies/features/Auth/widgets/circular_loading.dart';
 import 'package:movies/features/Auth/widgets/language_toggle.dart';
-
-import '../../../../core/routing/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -32,6 +34,8 @@ class _RegisterScreen extends State<RegisterScreen> {
   bool isSecurePassword = true ;
   bool isSecureConfirmPassword = true ;
 
+  String chosenAvatar = AppAvatars.avatar2;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -40,6 +44,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
   @override
     Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of( context , listen: true ) ;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -54,119 +59,134 @@ class _RegisterScreen extends State<RegisterScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric( horizontal: 16.w ),
-              child: Column(
-                children: [
-                  AvatarPageview() ,
-                  Text( "avatar".tr() , style: AppTextStyles.regular16White ) ,
-                  SizedBox( height: 12.h ,) ,
-                  Form(
-                    key: formKey ,
-                    child: Column(
-                      crossAxisAlignment: .stretch ,
-                      children: [
-                        CustomTextFormField( hintText: "name".tr() ,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                            child: SvgPicture.asset(AppIcons.nameIcon),
-                          ) , 
-                          controller: nameController ,
-                          validator: (value) => FormValidation.nameValidation(value) ,
-                        ) , 
-                        SizedBox( height: 24.h ,) ,
-                        CustomTextFormField( hintText: "email".tr() ,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                            child: SvgPicture.asset(AppIcons.emailIcon),
-                          ) , 
-                          controller: emailController ,
-                          validator: (value) => FormValidation.emailValidation(value) ,
-                        ) , 
-                        SizedBox( height: 24.h ,) ,
-                        CustomTextFormField( hintText: "password".tr() , 
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                            child: SvgPicture.asset(AppIcons.passwordIcon),
-                          )  ,
-                          suffixIcon: InkWell(
-                            onTap: (){
-                              setState(() {
-                                isSecurePassword=!isSecurePassword;
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: isSecurePassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
-                            ) ,
-                          ) , 
-                          isObscure : isSecurePassword ,
-                          controller: passwordController ,
-                          validator: (value) => FormValidation.passwordValidation(value) ,
-                        ) , 
-                        SizedBox( height: 24.h ,) ,
-                        CustomTextFormField( hintText: "confirm_password".tr() , 
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                            child: SvgPicture.asset(AppIcons.passwordIcon),
-                          )  ,
-                          suffixIcon: InkWell(
-                            onTap: (){
-                              setState(() {
-                                isSecureConfirmPassword=!isSecureConfirmPassword;
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: isSecureConfirmPassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
-                            ) ,
-                          ) , 
-                          isObscure : isSecureConfirmPassword ,
-                          controller: confirmPasswordController ,
-                          validator: (value) => FormValidation.confirmPasswordValidation(value, passwordController, confirmPasswordController),
-                        ) , 
-                        SizedBox( height: 24.h ,) ,
-                        CustomTextFormField( hintText: "phone_number".tr() ,
-                        controller: phoneController , 
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only( left: 20.w , right: 8 ),
-                            child: SvgPicture.asset(AppIcons.phoneIcon),
-                          )  ,
-                          validator: (value) => FormValidation.phoneValidation(value) ,
-                        ) , 
-                        SizedBox( height: 24.h ,) ,
-                        CustomElevatedButton( 
-                          child: Text(
-                            "create_account".tr() , 
-                            style: AppTextStyles.regular20DarkGray ,
-                          ) ,
-                          onpressed: (){
-                            if ( formKey.currentState!.validate() ) {
-                              Navigator.of(context).pushReplacementNamed(AppRoutes.updateProfileScreen) ;
-                            }
-                          } , 
-                        ) ,
-                        SizedBox( height: 18.h ,) ,
-                        Row(
-                          mainAxisAlignment: .center ,
-                          textDirection: context.locale.languageCode == 'ar' ? .rtl : .ltr ,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric( horizontal: 16.w ),
+                  child: Column(
+                    children: [
+                      AvatarPageview(
+                        onAvatarChanged: (newAvatar) => chosenAvatar = newAvatar 
+                      ) ,
+                      Text( "avatar".tr() , style: AppTextStyles.regular16White ) ,
+                      SizedBox( height: 12.h ,) ,
+                      Form(
+                        key: formKey ,
+                        child: Column(
+                          crossAxisAlignment: .stretch ,
                           children: [
-                            Text( "already_have_account".tr() , style: AppTextStyles.regular14White , ) ,
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text( "login".tr() , style: AppTextStyles.regular14Amber , ),
-                            ),
+                            CustomTextFormField( hintText: "name".tr() ,
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                child: SvgPicture.asset(AppIcons.nameIcon),
+                              ) , 
+                              controller: nameController ,
+                              validator: (value) => FormValidation.nameValidation(value) ,
+                            ) , 
+                            SizedBox( height: 24.h ,) ,
+                            CustomTextFormField( hintText: "email".tr() ,
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                child: SvgPicture.asset(AppIcons.emailIcon),
+                              ) , 
+                              controller: emailController ,
+                              validator: (value) => FormValidation.emailValidation(value) ,
+                            ) , 
+                            SizedBox( height: 24.h ,) ,
+                            CustomTextFormField( hintText: "password".tr() , 
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                child: SvgPicture.asset(AppIcons.passwordIcon),
+                              )  ,
+                              suffixIcon: InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    isSecurePassword=!isSecurePassword;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: isSecurePassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
+                                ) ,
+                              ) , 
+                              isObscure : isSecurePassword ,
+                              controller: passwordController ,
+                              validator: (value) => FormValidation.passwordValidation(value) ,
+                            ) , 
+                            SizedBox( height: 24.h ,) ,
+                            CustomTextFormField( hintText: "confirm_password".tr() , 
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                child: SvgPicture.asset(AppIcons.passwordIcon),
+                              )  ,
+                              suffixIcon: InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    isSecureConfirmPassword=!isSecureConfirmPassword;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: isSecureConfirmPassword?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
+                                ) ,
+                              ) , 
+                              isObscure : isSecureConfirmPassword ,
+                              controller: confirmPasswordController ,
+                              validator: (value) => FormValidation.confirmPasswordValidation(value, passwordController, confirmPasswordController),
+                            ) , 
+                            SizedBox( height: 24.h ,) ,
+                            CustomTextFormField( hintText: "phone_number".tr() ,
+                            controller: phoneController , 
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                child: SvgPicture.asset(AppIcons.phoneIcon),
+                              )  ,
+                              validator: (value) => FormValidation.phoneValidation(value) ,
+                            ) , 
+                            SizedBox( height: 24.h ,) ,
+                            CustomElevatedButton( 
+                              child: Text(
+                                "create_account".tr() , 
+                                style: AppTextStyles.regular20DarkGray ,
+                              ) ,
+                              onpressed: (){
+                                if ( formKey.currentState!.validate() ) {
+                                  authProvider.register(
+                                    context: context,  
+                                    name: nameController.text , 
+                                    email: emailController.text , 
+                                    password: passwordController.text , 
+                                    avatar: chosenAvatar , 
+                                    phoneNumber: phoneController.text ,
+                                  ) ;
+                                }
+                              } , 
+                            ) ,
+                            SizedBox( height: 18.h ,) ,
+                            Row(
+                              mainAxisAlignment: .center ,
+                              textDirection: context.locale.languageCode == 'ar' ? .rtl : .ltr ,
+                              children: [
+                                Text( "already_have_account".tr() , style: AppTextStyles.regular14White , ) ,
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text( "login".tr() , style: AppTextStyles.regular14Amber , ),
+                                ),
+                              ],
+                            ) ,
+                            SizedBox( height: 18.h ,) ,
+                            LanguageToggle() ,
                           ],
-                        ) ,
-                        SizedBox( height: 18.h ,) ,
-                        LanguageToggle() ,
-                      ],
-                    )
-                  ) ,
-                ],
-              ),
+                        )
+                      ) ,
+                    ],
+                  ),
+                ),
+                if (authProvider.isLoading)
+                  CircularLoading() ,
+              ] ,
             ),
           ),
         ),
