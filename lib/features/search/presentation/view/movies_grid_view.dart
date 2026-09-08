@@ -13,7 +13,7 @@ class MoviesGridVew extends StatelessWidget {
       itemCount: 10,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1,
+        childAspectRatio: .68,
         crossAxisSpacing: 20.w,
         mainAxisSpacing: 8.h,
       ),
