@@ -42,12 +42,12 @@ class OnboardingFirstPage extends StatelessWidget {
               width: double.infinity,
               child: CustomElevatedButton(
                 onpressed: onNext,
+
+                backGroundColor: theme.colorScheme.onSecondary,
                 child: Text(
                   item.buttonTextKey.tr(),
                   style: theme.textTheme.bodyMedium!,
                 ),
-
-                backGroundColor: theme.colorScheme.onSecondary,
               ),
             ),
           ],

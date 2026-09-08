@@ -13,4 +13,7 @@ class AppIcons {
   static const String searchIcon = '${_initialPath}searchIcon.svg';
   static const String browseIcon = '${_initialPath}browseIcon.svg';
   static const String profileIcon = '${_initialPath}ProfileIcon.svg';
+  static const String exitIcon = '${_initialPath}exitIcon.svg';
+  static const String watchListIcon = '${_initialPath}watchListIcon.svg';
+  static const String historyIcon = '${_initialPath}historyIcon.svg';
 }

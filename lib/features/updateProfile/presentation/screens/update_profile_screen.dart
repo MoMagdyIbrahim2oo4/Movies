@@ -29,7 +29,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Text(
           "pickAvatar".tr(),
           style: Theme.of(context).textTheme.labelSmall,
@@ -41,11 +46,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           crossAxisAlignment: .stretch,
           spacing: 20.h,
           children: [
-            Center(child: InkWell(
-              onTap: (){
-                showAvatarsSheet(context,onAvatarClicked,avatars,avatar);
-              },
-                child: Image.asset(avatar.avatarPath))),
+            Center(
+              child: InkWell(
+                onTap: () {
+                  showAvatarsSheet(context, onAvatarClicked, avatars, avatar);
+                },
+                child: Image.asset(avatar.avatarPath),
+              ),
+            ),
             CustomTextFormField(prefixIcon: Icon(Icons.person)),
             CustomTextFormField(prefixIcon: Icon(Icons.phone)),
             Text(
@@ -56,13 +64,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             CustomElevatedButton(
               onpressed: () {},
               backGroundColor: AppColors.crimson,
-              child: Text( "deleteAccount".tr(),
+              child: Text(
+                "deleteAccount".tr(),
                 style: Theme.of(context).textTheme.labelMedium!,
               ),
             ),
             CustomElevatedButton(
               onpressed: () {},
-              child: Text( "updateData".tr(),
+              child: Text(
+                "updateData".tr(),
                 style: Theme.of(context).textTheme.labelLarge!,
               ),
             ),
@@ -72,9 +82,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 
-  void onAvatarClicked(AvatarModel avatarModel){
+  void onAvatarClicked(AvatarModel avatarModel) {
     setState(() {
-      avatar=avatarModel;
+      avatar = avatarModel;
     });
   }
 }
