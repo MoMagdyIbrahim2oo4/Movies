@@ -43,5 +43,10 @@
   "already_have_account": "لديك حساب بالفعل ؟ ",
   "verify_email": "تأكيد البريد الإلكتروني",
   "forget_password": "نسيت كلمة المرور",
-  "search":"ابحث"
+  "wishlist": "قائمة الرغبات",
+  "history": "السجل",
+  "edit_profile": "تعديل الملف الشخصي",
+  "exit": "خروج",
+  "watch_list": "قائمة المشاهدة",
+  "search":"بحث"
 }

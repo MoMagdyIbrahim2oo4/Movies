@@ -3,19 +3,22 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/widgets/movie_card.dart';
 
-class CategoriesGridVew extends StatelessWidget {
-  CategoriesGridVew({super.key});
-  final List<Movie> movies = Movie.movies;
+class MoviesGridView extends StatelessWidget {
+  final List<Movie> movies;
+
+  const MoviesGridView({super.key, required this.movies});
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: 10,
+      padding: EdgeInsets.fromLTRB(14.w, 24.h, .14.w, 68.h),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: .68,
-        crossAxisSpacing: 20.w,
-        mainAxisSpacing: 8.h,
+        crossAxisCount: 3,
+        crossAxisSpacing: 10.w,
+        mainAxisSpacing: 10.h,
+        childAspectRatio: 0.68,
       ),
+      itemCount: movies.length,
       itemBuilder: (context, index) => MovieCard(movie: movies[index]),
     );
   }

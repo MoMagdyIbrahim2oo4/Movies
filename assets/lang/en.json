@@ -43,5 +43,11 @@
   "already_have_account": "Already Have Account ? ",
   "verify_email": "Verify Email",
   "forget_password": "Forget Password",
-  "search":"Search"
+  "wishlist": "Wish List",
+  "history": "History",
+  "edit_profile": "Edit Profile",
+  "exit": "Exit",
+  "watch_list" : "Watch List",
+  "search":"search"
+
 }
