@@ -29,6 +29,8 @@ class DarkTheme {
       headlineLarge: AppTextStyles.bold24White,
       bodyMedium: AppTextStyles.semiBold20DarkGray,
       displayLarge: AppTextStyles.medium40White,
+      displaySmall: AppTextStyles.bold20Amber,
+      displayMedium: AppTextStyles.bold20Black
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
