@@ -4,8 +4,9 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/core/constants/app_images.dart';
+import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/widgets/custom_text_form_field.dart';
-import 'package:movies/features/search/presentation/view/movies_grid_view.dart';
+import 'package:movies/core/widgets/movies_grid_view.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -39,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Expanded(
             child: searchItem.isEmpty
                 ? Center(child: Image.asset(AppImages.empty))
-                : MoviesGridVew(),
+                : MoviesGridView(movies: Movie.movies, crossAxisCount: 2),
           ),
         ],
       ),

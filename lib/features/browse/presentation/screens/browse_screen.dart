@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:movies/features/browse/presentation/view/categories_grid_view.dart';
+import 'package:movies/core/models/movie_model.dart';
+import 'package:movies/core/widgets/movies_grid_view.dart';
 import 'package:movies/features/browse/presentation/widgets/categories.dart';
 
 class BrowseScreen extends StatefulWidget {
@@ -47,7 +48,9 @@ class _BrowseScreenState extends State<BrowseScreen> {
               scrollDirection: Axis.horizontal,
             ),
           ),
-          Expanded(child: CategoriesGridVew()),
+          Expanded(
+            child: MoviesGridView(movies: Movie.movies, crossAxisCount: 2),
+          ),
         ],
       ),
     );

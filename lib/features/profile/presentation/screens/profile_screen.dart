@@ -4,8 +4,8 @@ import 'package:movies/core/constants/app_avatars.dart';
 import 'package:movies/core/constants/app_images.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/routing/app_routes.dart';
+import 'package:movies/core/widgets/movies_grid_view.dart';
 import 'package:movies/core/widgets/sliver_tab_bar_delegate.dart';
-import 'package:movies/features/profile/presentation/widgets/movies_grid_view.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_info_section.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_tab_bar.dart';
 
@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             controller: _tabController,
             children: [
               Center(child: Image.asset(AppImages.empty)),
-              MoviesGridView(movies: Movie.movies),
+              MoviesGridView(movies: Movie.movies, crossAxisCount: 3),
             ],
           ),
         ),
