@@ -22,13 +22,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
-  final GlobalKey<FormState> formKey  = GlobalKey<FormState>() ;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final TextEditingController emailController = TextEditingController() ;
-  final TextEditingController passwordController = TextEditingController() ;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  bool isSecure = true ;
+  bool isSecure = true;
 
   @override
   void dispose() {
@@ -36,9 +35,15 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
   @override
-    Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of( context , listen: true ) ;
+  Widget build(BuildContext context) {
+    // LoginScreen مش هتعمل rebuild مع كل notifyListeners()
+    final AuthProvider authProvider = Provider.of<AuthProvider>(
+      context,
+      listen: false,
+    );
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,132 +51,194 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric( horizontal: 16.w ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
                     children: [
                       SizedBox(
-                        width: 121.w ,
-                        height: 118.h ,
-                        child: Image( image: AssetImage(AppImages.appLogo ) , ) ,
+                        width: 121.w,
+                        height: 118.h,
+                        child: Image(image: AssetImage(AppImages.appLogo)),
                       ),
-                      SizedBox( height: 69.h , ) ,
+
+                      SizedBox(height: 69.h),
+
                       Form(
-                        key: formKey ,
+                        key: formKey,
                         child: Column(
-                          crossAxisAlignment: .stretch ,
+                          crossAxisAlignment: .stretch,
                           children: [
-                            CustomTextFormField( hintText: "email".tr() ,
+                            CustomTextFormField(
+                              hintText: "email".tr(),
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                padding: EdgeInsets.only(left: 20.w, right: 8),
                                 child: SvgPicture.asset(AppIcons.emailIcon),
-                              ) , 
-                              controller: emailController ,
-                              validator: (value) => FormValidation.emailValidation(value) ,
-                            ) , 
-                            SizedBox( height: 16.h ,) ,
-                            CustomTextFormField( hintText: "password".tr() , 
+                              ),
+                              controller: emailController,
+                              validator: (value) =>
+                                  FormValidation.emailValidation(value),
+                            ),
+
+                            SizedBox(height: 16.h),
+
+                            CustomTextFormField(
+                              hintText: "password".tr(),
                               prefixIcon: Padding(
-                                padding: EdgeInsets.only( left: 20.w , right: 8 ),
+                                padding: EdgeInsets.only(left: 20.w, right: 8),
                                 child: SvgPicture.asset(AppIcons.passwordIcon),
-                              )  ,
+                              ),
                               suffixIcon: InkWell(
-                                onTap: (){
+                                onTap: () {
                                   setState(() {
-                                    isSecure=!isSecure;
+                                    isSecure = !isSecure;
                                   });
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: isSecure?Icon(Icons.visibility_off_outlined):Icon(Icons.visibility_outlined),
-                                ) ,
-                              ) , 
-                              isObscure : isSecure ,
-                              controller: passwordController ,
-                              validator: (value) => FormValidation.passwordValidation(value) ,
-                            ) , 
-                            SizedBox( height: 8.h ,) ,
+                                  child: isSecure
+                                      ? const Icon(
+                                          Icons.visibility_off_outlined,
+                                        )
+                                      : const Icon(Icons.visibility_outlined),
+                                ),
+                              ),
+                              isObscure: isSecure,
+                              controller: passwordController,
+                              validator: (value) =>
+                                  FormValidation.passwordValidation(value),
+                            ),
+
+                            SizedBox(height: 8.h),
+
                             Align(
-                              alignment: .centerEnd ,
+                              alignment: .centerEnd,
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed( 
-                                    context , 
-                                    AppRoutes.forgetPasswordScreen , 
-                                  ) ;
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.forgetPasswordScreen,
+                                  );
                                 },
-                                child: Text( "forget_password_hint".tr() , style: AppTextStyles.regular14Amber , ),
+                                child: Text(
+                                  "forget_password_hint".tr(),
+                                  style: AppTextStyles.regular14Amber,
+                                ),
                               ),
                             ),
-                            SizedBox( height: 33.h ,) ,
-                            CustomElevatedButton( 
-                              child: 
-                              Text( "login".tr() , style: AppTextStyles.regular20DarkGray , ),
-                              onpressed: (){
-                                if ( formKey.currentState!.validate() ) {
-                                  authProvider.login( 
-                                    context: context , 
-                                    email: emailController.text , 
-                                    password: passwordController.text ,
-                                  ) ;
+
+                            SizedBox(height: 33.h),
+
+                            CustomElevatedButton(
+                              child: Text(
+                                "login".tr(),
+                                style: AppTextStyles.regular20DarkGray,
+                              ),
+                              onpressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  authProvider.login(
+                                    context: context,
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
                                 }
-                              } , 
-                            ) ,
-                            SizedBox( height: 23.h ,) ,
+                              },
+                            ),
+
+                            SizedBox(height: 23.h),
+
                             Row(
-                              mainAxisAlignment: .center ,
-                              textDirection: context.locale.languageCode == 'ar' ? .rtl : .ltr ,
+                              mainAxisAlignment: .center,
+                              textDirection: context.locale.languageCode == 'ar'
+                                  ? .rtl
+                                  : .ltr,
                               children: [
-                                Text("don't_have_account".tr() , style: AppTextStyles.regular14White , ) ,
+                                Text(
+                                  "don't_have_account".tr(),
+                                  style: AppTextStyles.regular14White,
+                                ),
                                 InkWell(
-                                  onTap: () => Navigator.pushNamed(context, AppRoutes.registerScreen ) ,
-                                  child: Text( "create_one".tr() , style: AppTextStyles.regular14Amber , ),
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.registerScreen,
+                                  ),
+                                  child: Text(
+                                    "create_one".tr(),
+                                    style: AppTextStyles.regular14Amber,
+                                  ),
                                 ),
                               ],
-                            ) ,
-                            SizedBox( height: 28.h ,) , 
+                            ),
+
+                            SizedBox(height: 28.h),
+
                             Row(
-                            children: [
-                              const Expanded(
-                                child: Divider(
-                                  indent: 80 ,
-                                  color: Color(0xffF6BD00),
-                                  thickness: 1,
+                              children: [
+                                const Expanded(
+                                  child: Divider(
+                                    indent: 80,
+                                    color: Color(0xffF6BD00),
+                                    thickness: 1,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text( 'or'.tr() , style: AppTextStyles.regular14Amber , ),
-                              ),
-                              const Expanded(
-                                child: Divider(
-                                  endIndent: 80 ,
-                                  color: Color(0xffF6BD00) ,
-                                  thickness: 1,
+
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  child: Text(
+                                    'or'.tr(),
+                                    style: AppTextStyles.regular14Amber,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ) ,
-                            SizedBox( height: 28.h ,) , 
-                            CustomElevatedButton( 
-                              onpressed: (){ } , 
+
+                                const Expanded(
+                                  child: Divider(
+                                    endIndent: 80,
+                                    color: Color(0xffF6BD00),
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            SizedBox(height: 28.h),
+
+                            CustomElevatedButton(
+                              onpressed: () {},
                               child: Row(
                                 mainAxisAlignment: .center,
                                 children: [
-                                  SvgPicture.asset( AppIcons.googleIcon ) ,
-                                  SizedBox( width: 11.w ,) ,
-                                  Text( "login_with_google".tr() , style: AppTextStyles.regular16DarkGray , ) ,
+                                  SvgPicture.asset(AppIcons.googleIcon),
+
+                                  SizedBox(width: 11.w),
+
+                                  Text(
+                                    "login_with_google".tr(),
+                                    style: AppTextStyles.regular16DarkGray,
+                                  ),
                                 ],
                               ),
-                            ) ,
-                            SizedBox( height: 34.h ,) ,
-                            const LanguageToggle() ,
+                            ),
+
+                            SizedBox(height: 34.h),
+
+                            const LanguageToggle(),
                           ],
-                        )
-                      ) ,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                if (authProvider.isLoading) CircularLoading() ,
+
+                // الجزء ده فقط هو اللي بيسمع لتغيير isLoading
+                Consumer<AuthProvider>(
+                  builder: (context, authProvider, child) {
+                    if (authProvider.isLoading) {
+                      return const CircularLoading();
+                    }
+
+                    return const SizedBox.shrink();
+                  },
+                ),
               ],
             ),
           ),

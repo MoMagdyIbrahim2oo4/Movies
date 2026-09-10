@@ -20,16 +20,16 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final bool hasSeenOnboarding = await OnboardingPrefs.hasSeenOnboarding();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (context) => AuthProvider()),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (context) => AuthProvider(),
+        ),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          builder: DevicePreview.appBuilder,
+          // builder: DevicePreview.appBuilder,
           home: AuthWrapper(hasSeenOnboarding: hasSeenOnboarding),
           routes: {
             AppRoutes.onboardingScreen: (context) => OnBoardingScreen(),
