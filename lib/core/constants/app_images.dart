@@ -9,4 +9,6 @@ class AppImages {
   static const String moviesPosters = '${_initialPath}moviesposters.png';
   static const String openheimer = '${_initialPath}oppenheimer.png';
   static const String empty = '${_initialPath}Empty.png';
+  static const String watchNow = '${_initialPath}watchNow.png';
+  static const String available = '${_initialPath}available.png';
 }
