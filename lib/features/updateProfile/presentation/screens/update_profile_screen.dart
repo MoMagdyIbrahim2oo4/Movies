@@ -99,100 +99,102 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             )
           : Padding(
               padding: EdgeInsets.all(16.r),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 20.h),
-                  Center(
-                    child: InkWell(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20.h),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          showAvatarsSheet(
+                            context,
+                            onAvatarClicked,
+                            avatars,
+                            avatar,
+                          );
+                        },
+                        child: Image.asset(avatar.avatarPath),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    CustomTextFormField(
+                      controller: nameController,
+                      prefixIcon: const Icon(Icons.person),
+                    ),
+                    SizedBox(height: 20.h),
+                    CustomTextFormField(
+                      controller: phoneController,
+                      prefixIcon: const Icon(Icons.phone),
+                    ),
+                    SizedBox(height: 20.h),
+                    InkWell(
                       onTap: () {
-                        showAvatarsSheet(
+                        Navigator.pushNamed(
                           context,
-                          onAvatarClicked,
-                          avatars,
-                          avatar,
+                          AppRoutes.forgetPasswordScreen,
                         );
                       },
-                      child: Image.asset(avatar.avatarPath),
+                      child: Text(
+                        "resetPassword".tr(),
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20.h),
-                  CustomTextFormField(
-                    controller: nameController,
-                    prefixIcon: const Icon(Icons.person),
-                  ),
-                  SizedBox(height: 20.h),
-                  CustomTextFormField(
-                    controller: phoneController,
-                    prefixIcon: const Icon(Icons.phone),
-                  ),
-                  SizedBox(height: 20.h),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.forgetPasswordScreen,
-                      );
-                    },
-                    child: Text(
-                      "resetPassword".tr(),
-                      style: Theme.of(context).textTheme.labelMedium,
+                    SizedBox(height: 20.h,),
+                    CustomElevatedButton(
+                      onpressed: authProvider.isDeleting
+                          ? null
+                          : () async {
+                              await authProvider.deleteAccount(context: context);
+                            },
+                      backGroundColor: AppColors.crimson,
+                      child: authProvider.isDeleting
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              "deleteAccount".tr(),
+                              style: Theme.of(context).textTheme.labelMedium!,
+                            ),
                     ),
-                  ),
-                  const Spacer(),
-                  CustomElevatedButton(
-                    onpressed: authProvider.isDeleting
-                        ? null
-                        : () async {
-                            await authProvider.deleteAccount(context: context);
-                          },
-                    backGroundColor: AppColors.crimson,
-                    child: authProvider.isDeleting
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : Text(
-                            "deleteAccount".tr(),
-                            style: Theme.of(context).textTheme.labelMedium!,
-                          ),
-                  ),
-                  SizedBox(height: 20.h),
-                  CustomElevatedButton(
-                    onpressed: authProvider.isUpdating
-                        ? null
-                        : () {
-                            final String? newName =
-                                nameController.text.trim() != _oldName
-                                ? nameController.text.trim()
-                                : null;
-
-                            final String? newPhone =
-                                phoneController.text.trim() != _oldPhone
-                                ? phoneController.text.trim()
-                                : null;
-
-                            final String? newAvatar =
-                                avatar.avatarPath != _oldAvatar
-                                ? avatar.avatarPath
-                                : null;
-
-                            if (newName == null && newPhone == null && newAvatar == null) {
-                              return;
-                            }
-
-                            authProvider.updateProfile(
-                              context: context,
-                              name: newName,
-                              phoneNumber: newPhone,
-                              avatar: newAvatar,
-                            );
-                          },
-                    child: authProvider.isUpdating
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : Text(
-                            "updateData".tr(),
-                            style: Theme.of(context).textTheme.labelLarge!,
-                          ),
-                  ),
-                ],
+                    SizedBox(height: 20.h),
+                    CustomElevatedButton(
+                      onpressed: authProvider.isUpdating
+                          ? null
+                          : () {
+                              final String? newName =
+                                  nameController.text.trim() != _oldName
+                                  ? nameController.text.trim()
+                                  : null;
+                
+                              final String? newPhone =
+                                  phoneController.text.trim() != _oldPhone
+                                  ? phoneController.text.trim()
+                                  : null;
+                
+                              final String? newAvatar =
+                                  avatar.avatarPath != _oldAvatar
+                                  ? avatar.avatarPath
+                                  : null;
+                
+                              if (newName == null && newPhone == null && newAvatar == null) {
+                                return;
+                              }
+                
+                              authProvider.updateProfile(
+                                context: context,
+                                name: newName,
+                                phoneNumber: newPhone,
+                                avatar: newAvatar,
+                              );
+                            },
+                      child: authProvider.isUpdating
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              "updateData".tr(),
+                              style: Theme.of(context).textTheme.labelLarge!,
+                            ),
+                    ),
+                  ],
+                ),
               ),
             ),
     );
