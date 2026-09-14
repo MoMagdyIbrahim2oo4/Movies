@@ -17,7 +17,11 @@ class MovieHeader extends StatelessWidget {
     final theme = Theme.of(context);
     return Stack(
       children: [
-        Image.network(movie.posterUrl, fit: BoxFit.cover),
+        Image.network(
+          movie.posterUrl,
+          fit: BoxFit.cover,
+          width: double.infinity,
+        ),
         Positioned.fill(
           child: Image.asset(AppImages.gradiant, fit: BoxFit.cover),
         ),
