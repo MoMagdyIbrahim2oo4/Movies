@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/routing/app_routes.dart';
 import 'package:movies/core/routing/auth_wrapper.dart';
 import 'package:movies/core/theme/dark_theme.dart';
@@ -10,6 +11,7 @@ import 'package:movies/features/Auth/presentation/screens/forget_password_screen
 import 'package:movies/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movies/features/Auth/presentation/screens/register_screen.dart';
 import 'package:movies/features/main/presentation/screens/main_layout_screen.dart';
+import 'package:movies/features/movie_details/presentation/screens/movie_details_screen.dart';
 import 'package:movies/features/onboarding/data/services/onboarding_prefs.dart';
 import 'package:movies/features/onboarding/presentation/screens/on_boarding_screen.dart';
 import 'package:movies/features/updateProfile/presentation/screens/update_profile_screen.dart';
@@ -36,7 +38,7 @@ void main() async {
         path: 'assets/lang',
         fallbackLocale: const Locale('en'),
         child: DevicePreview(
-          enabled: true,
+          enabled: false,
           builder: (context) => MyApp(hasSeenOnboarding: hasSeenOnboarding),
         ),
       ),
@@ -71,6 +73,9 @@ class MyApp extends StatelessWidget {
             AppRoutes.forgetPasswordScreen: (context) => ForgetPasswordScreen(),
             AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
             AppRoutes.mainLayoutScreen: (context) => MainLayoutScreen(),
+            AppRoutes.movieDetailsScreen: (context) => MovieDetailsScreen(
+              movie: ModalRoute.of(context)!.settings.arguments as Movie,
+            ),
           },
           darkTheme: DarkTheme.dark,
           themeMode: ThemeMode.dark,

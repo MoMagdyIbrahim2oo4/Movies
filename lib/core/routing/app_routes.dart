@@ -5,4 +5,5 @@ class AppRoutes {
   static const String forgetPasswordScreen = 'Forget Password';
   static const String updateProfileScreen = 'Update Profile';
   static const String mainLayoutScreen = 'main';
+  static const String movieDetailsScreen = 'details';
 }

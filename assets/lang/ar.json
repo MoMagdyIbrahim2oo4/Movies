@@ -62,5 +62,11 @@
   "Action": "أكشن",
   "Adventure": "مغامرة",
   "Animation": "رسوم متحركة",
-  "Biography": "سيرة ذاتية"
+  "Biography": "سيرة ذاتية",
+  "Watch": "مشاهدة",
+  "screenShots": "لقطات الشاشة",
+  "similar": "أفلام مشابهة",
+  "summary": "الملخص",
+  "cast": "طاقم التمثيل",
+  "genres": "الأنواع"
 }

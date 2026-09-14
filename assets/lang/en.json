@@ -62,5 +62,11 @@
   "Action": "Action",
   "Adventure": "Adventure",
   "Animation": "Animation",
-  "Biography": "Biography"
+  "Biography": "Biography",
+  "Watch":"Watch",
+  "screenShots":"Screen Shots",
+  "similar":"Similar",
+  "summary":"Summary",
+  "cast":"Cast",
+  "genres":"Genres"
 }

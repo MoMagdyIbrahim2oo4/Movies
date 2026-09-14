@@ -11,4 +11,9 @@ class AppImages {
   static const String empty = '${_initialPath}Empty.png';
   static const String watchNow = '${_initialPath}watchNow.png';
   static const String available = '${_initialPath}available.png';
+  static const String gradiant = '${_initialPath}gradiant.png';
+  static const String docStrange = '${_initialPath}Doc_Strange.png';
+  static const String screenShot1 = '${_initialPath}screenshot1.png';
+  static const String screenShot2 = '${_initialPath}screenshot2.png';
+  static const String screenShot3 = '${_initialPath}screenshot3.png';
 }
