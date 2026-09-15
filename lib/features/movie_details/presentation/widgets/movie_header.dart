@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,8 +18,8 @@ class MovieHeader extends StatelessWidget {
     final theme = Theme.of(context);
     return Stack(
       children: [
-        Image.network(
-          movie.posterUrl,
+        CachedNetworkImage(
+          imageUrl: movie.posterUrl,
           fit: BoxFit.cover,
           width: double.infinity,
         ),

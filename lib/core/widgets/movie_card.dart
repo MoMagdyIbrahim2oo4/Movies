@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
@@ -22,10 +23,10 @@ class MovieCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.network(
-                movie.posterUrl,
+              child: CachedNetworkImage(
+                imageUrl: movie.posterUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
+                errorWidget: (context, error, stackTrace) =>
                     Container(color: theme.colorScheme.surface),
               ),
             ),

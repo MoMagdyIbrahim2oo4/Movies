@@ -16,12 +16,18 @@ class MainLayoutScreen extends StatefulWidget {
 class _MainLayoutState extends State<MainLayoutScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    SearchScreen(),
-    BrowseScreen(),
-    ProfileScreen(),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreen(onBrowse: () => _onItemTapped(2)),
+      const SearchScreen(),
+      const BrowseScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {

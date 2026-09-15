@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/core/widgets/custom_text_button.dart';
 
 class MovieSectionTitle extends StatelessWidget {
   final String title;
@@ -17,9 +18,10 @@ class MovieSectionTitle extends StatelessWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.labelMedium),
           if (onSeeMore != null)
-            TextButton(
-              onPressed: onSeeMore,
-              child: Text('See More →', style: theme.textTheme.labelSmall),
+            CustomTextButton(
+              onPressed: onSeeMore!,
+              text: 'See More →',
+              style: theme.textTheme.labelSmall,
             ),
         ],
       ),
