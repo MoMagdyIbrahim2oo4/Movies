@@ -3,11 +3,11 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/widgets/movie_card.dart';
 
-class HomeMovieList extends StatelessWidget {
+class MovieCategoryList extends StatelessWidget {
   final List<Movie> movies;
   final double cardWidth;
 
-  const HomeMovieList({
+  const MovieCategoryList({
     super.key,
     required this.movies,
     this.cardWidth = 128,
@@ -21,7 +21,7 @@ class HomeMovieList extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
-        separatorBuilder: (_, index) => SizedBox(width: 12.w),
+        separatorBuilder: (_, index) => SizedBox(width: 16.w),
         itemBuilder: (context, index) => SizedBox(
           width: cardWidth.w,
           child: MovieCard(movie: movies[index]),

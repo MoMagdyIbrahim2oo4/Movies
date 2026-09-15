@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
@@ -30,7 +31,10 @@ class CastContainer extends StatelessWidget {
             height: 70.h,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.r),
-              child: Image.network(castImagePath, fit: BoxFit.cover),
+              child: CachedNetworkImage(
+                imageUrl: castImagePath,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(

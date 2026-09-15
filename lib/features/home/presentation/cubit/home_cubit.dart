@@ -12,6 +12,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const HomeLoading());
     try {
       final movies = await repository.getMovies();
+      if (isClosed) return;
       emit(HomeSuccess(movies));
     } on DioException {
       emit(const HomeFailure('Could not connect to the movies service.'));

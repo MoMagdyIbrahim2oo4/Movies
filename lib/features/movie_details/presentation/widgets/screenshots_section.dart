@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
@@ -21,7 +22,7 @@ class ScreenshotsSection extends StatelessWidget {
             height: 167.h,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16.r),
-              child: Image.network(url, fit: BoxFit.cover),
+              child: CachedNetworkImage(imageUrl: url, fit: BoxFit.cover),
             ),
           ),
       ],
