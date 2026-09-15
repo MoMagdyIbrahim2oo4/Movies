@@ -15,7 +15,8 @@ class HomeHeroCarousel extends StatefulWidget {
 }
 
 class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
-  int currentPageIndex = 0;
+  static const int _initialPage = 4;
+  int currentPageIndex = _initialPage;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.sizeOf(context).width;
@@ -39,6 +40,7 @@ class _HomeHeroCarouselState extends State<HomeHeroCarousel> {
             ),
             MovieAvailableList(
               movies: widget.movies,
+              initialPage: _initialPage,
               onChangePage: (index, reason) {
                 onChangePage(index);
               },

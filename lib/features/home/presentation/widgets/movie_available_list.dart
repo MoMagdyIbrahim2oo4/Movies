@@ -9,10 +9,14 @@ class MovieAvailableList extends StatelessWidget {
     super.key,
     required this.movies,
     required this.onChangePage,
+    this.currentIndex,
+    this.initialPage = 4,
   });
 
   final List<Movie> movies;
+  final int? currentIndex;
   final void Function(int, CarouselPageChangedReason) onChangePage;
+  final int initialPage;
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
@@ -26,7 +30,7 @@ class MovieAvailableList extends StatelessWidget {
       },
       options: CarouselOptions(
         height: 351.h,
-        initialPage: 4,
+        initialPage: initialPage,
         viewportFraction: .5,
         enlargeStrategy: CenterPageEnlargeStrategy.height,
         // aspectRatio: 234 / 360,
