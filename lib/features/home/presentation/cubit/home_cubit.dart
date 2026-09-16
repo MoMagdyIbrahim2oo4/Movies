@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/network/dio_exception_message.dart';
 import 'package:movies/features/home/data/repositories/movie_repository.dart';
 import 'package:movies/features/home/presentation/cubit/home_state.dart';
 
@@ -14,8 +15,9 @@ class HomeCubit extends Cubit<HomeState> {
       final movies = await repository.getMovies();
       if (isClosed) return;
       emit(HomeSuccess(movies));
-    } on DioException {
-      emit(const HomeFailure('Could not connect to the movies service.'));
+    } on DioException catch(e) {
+       String errorMessage = e.message ?? "UnKnown";
+       emit(HomeFailure(errorMessage));
     } on FormatException catch (error) {
       emit(HomeFailure(error.message.toString()));
     }
