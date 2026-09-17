@@ -2,10 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies/core/constants/app_Icons.dart';
+import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/core/constants/app_colors.dart';
 import 'package:movies/core/constants/app_images.dart';
-import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
 import 'package:movies/features/movie_details/presentation/widgets/save_button.dart';
 

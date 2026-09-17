@@ -9,19 +9,19 @@ class MovieDetailsResponse {
   MovieDetailsResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     statusMessage = json['status_message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    meta = json['@meta'] != null ? new Meta.fromJson(json['@meta']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    meta = json['@meta'] != null ? Meta.fromJson(json['@meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['status_message'] = this.statusMessage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['status_message'] = statusMessage;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    if (this.meta != null) {
-      data['@meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['@meta'] = meta!.toJson();
     }
     return data;
   }
@@ -33,13 +33,13 @@ class Data {
   Data({this.movie});
 
   Data.fromJson(Map<String, dynamic> json) {
-    movie = json['movie'] != null ? new MovieDetails.fromJson(json['movie']) : null;
+    movie = json['movie'] != null ? MovieDetails.fromJson(json['movie']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.movie != null) {
-      data['movie'] = this.movie!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (movie != null) {
+      data['movie'] = movie!.toJson();
     }
     return data;
   }
@@ -79,39 +79,40 @@ class MovieDetails {
   String? dateUploaded;
   int? dateUploadedUnix;
 
-  MovieDetails(
-      {this.id,
-        this.url,
-        this.imdbCode,
-        this.title,
-        this.titleEnglish,
-        this.titleLong,
-        this.slug,
-        this.year,
-        this.rating,
-        this.runtime,
-        this.genres,
-        this.likeCount,
-        this.descriptionIntro,
-        this.descriptionFull,
-        this.ytTrailerCode,
-        this.language,
-        this.mpaRating,
-        this.backgroundImage,
-        this.backgroundImageOriginal,
-        this.smallCoverImage,
-        this.mediumCoverImage,
-        this.largeCoverImage,
-        this.mediumScreenshotImage1,
-        this.mediumScreenshotImage2,
-        this.mediumScreenshotImage3,
-        this.largeScreenshotImage1,
-        this.largeScreenshotImage2,
-        this.largeScreenshotImage3,
-        this.cast,
-        this.torrents,
-        this.dateUploaded,
-        this.dateUploadedUnix});
+  MovieDetails({
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.likeCount,
+    this.descriptionIntro,
+    this.descriptionFull,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.mediumScreenshotImage1,
+    this.mediumScreenshotImage2,
+    this.mediumScreenshotImage3,
+    this.largeScreenshotImage1,
+    this.largeScreenshotImage2,
+    this.largeScreenshotImage3,
+    this.cast,
+    this.torrents,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
 
   MovieDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -145,13 +146,13 @@ class MovieDetails {
     if (json['cast'] != null) {
       cast = <Cast>[];
       json['cast'].forEach((v) {
-        cast!.add(new Cast.fromJson(v));
+        cast!.add(Cast.fromJson(v));
       });
     }
     if (json['torrents'] != null) {
       torrents = <Torrents>[];
       json['torrents'].forEach((v) {
-        torrents!.add(new Torrents.fromJson(v));
+        torrents!.add(Torrents.fromJson(v));
       });
     }
     dateUploaded = json['date_uploaded'];
@@ -159,43 +160,43 @@ class MovieDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['url'] = this.url;
-    data['imdb_code'] = this.imdbCode;
-    data['title'] = this.title;
-    data['title_english'] = this.titleEnglish;
-    data['title_long'] = this.titleLong;
-    data['slug'] = this.slug;
-    data['year'] = this.year;
-    data['rating'] = this.rating;
-    data['runtime'] = this.runtime;
-    data['genres'] = this.genres;
-    data['like_count'] = this.likeCount;
-    data['description_intro'] = this.descriptionIntro;
-    data['description_full'] = this.descriptionFull;
-    data['yt_trailer_code'] = this.ytTrailerCode;
-    data['language'] = this.language;
-    data['mpa_rating'] = this.mpaRating;
-    data['background_image'] = this.backgroundImage;
-    data['background_image_original'] = this.backgroundImageOriginal;
-    data['small_cover_image'] = this.smallCoverImage;
-    data['medium_cover_image'] = this.mediumCoverImage;
-    data['large_cover_image'] = this.largeCoverImage;
-    data['medium_screenshot_image1'] = this.mediumScreenshotImage1;
-    data['medium_screenshot_image2'] = this.mediumScreenshotImage2;
-    data['medium_screenshot_image3'] = this.mediumScreenshotImage3;
-    data['large_screenshot_image1'] = this.largeScreenshotImage1;
-    data['large_screenshot_image2'] = this.largeScreenshotImage2;
-    data['large_screenshot_image3'] = this.largeScreenshotImage3;
-    if (this.cast != null) {
-      data['cast'] = this.cast!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['url'] = url;
+    data['imdb_code'] = imdbCode;
+    data['title'] = title;
+    data['title_english'] = titleEnglish;
+    data['title_long'] = titleLong;
+    data['slug'] = slug;
+    data['year'] = year;
+    data['rating'] = rating;
+    data['runtime'] = runtime;
+    data['genres'] = genres;
+    data['like_count'] = likeCount;
+    data['description_intro'] = descriptionIntro;
+    data['description_full'] = descriptionFull;
+    data['yt_trailer_code'] = ytTrailerCode;
+    data['language'] = language;
+    data['mpa_rating'] = mpaRating;
+    data['background_image'] = backgroundImage;
+    data['background_image_original'] = backgroundImageOriginal;
+    data['small_cover_image'] = smallCoverImage;
+    data['medium_cover_image'] = mediumCoverImage;
+    data['large_cover_image'] = largeCoverImage;
+    data['medium_screenshot_image1'] = mediumScreenshotImage1;
+    data['medium_screenshot_image2'] = mediumScreenshotImage2;
+    data['medium_screenshot_image3'] = mediumScreenshotImage3;
+    data['large_screenshot_image1'] = largeScreenshotImage1;
+    data['large_screenshot_image2'] = largeScreenshotImage2;
+    data['large_screenshot_image3'] = largeScreenshotImage3;
+    if (cast != null) {
+      data['cast'] = cast!.map((v) => v.toJson()).toList();
     }
-    if (this.torrents != null) {
-      data['torrents'] = this.torrents!.map((v) => v.toJson()).toList();
+    if (torrents != null) {
+      data['torrents'] = torrents!.map((v) => v.toJson()).toList();
     }
-    data['date_uploaded'] = this.dateUploaded;
-    data['date_uploaded_unix'] = this.dateUploadedUnix;
+    data['date_uploaded'] = dateUploaded;
+    data['date_uploaded_unix'] = dateUploadedUnix;
     return data;
   }
 }
@@ -216,11 +217,11 @@ class Cast {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['character_name'] = this.characterName;
-    data['url_small_image'] = this.urlSmallImage;
-    data['imdb_code'] = this.imdbCode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['character_name'] = characterName;
+    data['url_small_image'] = urlSmallImage;
+    data['imdb_code'] = imdbCode;
     return data;
   }
 }
@@ -241,21 +242,22 @@ class Torrents {
   String? dateUploaded;
   int? dateUploadedUnix;
 
-  Torrents(
-      {this.url,
-        this.hash,
-        this.quality,
-        this.type,
-        this.isRepack,
-        this.videoCodec,
-        this.bitDepth,
-        this.audioChannels,
-        this.seeds,
-        this.peers,
-        this.size,
-        this.sizeBytes,
-        this.dateUploaded,
-        this.dateUploadedUnix});
+  Torrents({
+    this.url,
+    this.hash,
+    this.quality,
+    this.type,
+    this.isRepack,
+    this.videoCodec,
+    this.bitDepth,
+    this.audioChannels,
+    this.seeds,
+    this.peers,
+    this.size,
+    this.sizeBytes,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
 
   Torrents.fromJson(Map<String, dynamic> json) {
     url = json['url'];
@@ -275,21 +277,21 @@ class Torrents {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['hash'] = this.hash;
-    data['quality'] = this.quality;
-    data['type'] = this.type;
-    data['is_repack'] = this.isRepack;
-    data['video_codec'] = this.videoCodec;
-    data['bit_depth'] = this.bitDepth;
-    data['audio_channels'] = this.audioChannels;
-    data['seeds'] = this.seeds;
-    data['peers'] = this.peers;
-    data['size'] = this.size;
-    data['size_bytes'] = this.sizeBytes;
-    data['date_uploaded'] = this.dateUploaded;
-    data['date_uploaded_unix'] = this.dateUploadedUnix;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['url'] = url;
+    data['hash'] = hash;
+    data['quality'] = quality;
+    data['type'] = type;
+    data['is_repack'] = isRepack;
+    data['video_codec'] = videoCodec;
+    data['bit_depth'] = bitDepth;
+    data['audio_channels'] = audioChannels;
+    data['seeds'] = seeds;
+    data['peers'] = peers;
+    data['size'] = size;
+    data['size_bytes'] = sizeBytes;
+    data['date_uploaded'] = dateUploaded;
+    data['date_uploaded_unix'] = dateUploadedUnix;
     return data;
   }
 }
@@ -306,9 +308,9 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['api_version'] = this.apiVersion;
-    data['execution_time'] = this.executionTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['api_version'] = apiVersion;
+    data['execution_time'] = executionTime;
     return data;
   }
 }

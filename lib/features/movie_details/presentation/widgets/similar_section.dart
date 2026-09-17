@@ -8,8 +8,6 @@ import 'package:movies/core/widgets/movie_card.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion_cubit.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_sugestions_state.dart';
 
-import '../../data/models/movie_details_response.dart';
-
 class SimilarSection extends StatelessWidget {
   final Movie currentMovie;
   const SimilarSection({super.key, required this.currentMovie});

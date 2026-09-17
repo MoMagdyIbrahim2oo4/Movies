@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/core/constants/app_Icons.dart';
-import 'package:movies/core/models/movie_model.dart';
+import 'package:movies/core/constants/app_icons.dart';
 import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
 import 'package:movies/features/movie_details/presentation/widgets/stats_container.dart';
 
@@ -13,11 +12,11 @@ class StatsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        StatsContainer(iconPath: AppIcons.heartIcon, value: '${movie.likeCount}'),
         StatsContainer(
-          iconPath: AppIcons.clockIcon,
-          value: '${movie.runtime}',
+          iconPath: AppIcons.heartIcon,
+          value: '${movie.likeCount}',
         ),
+        StatsContainer(iconPath: AppIcons.clockIcon, value: '${movie.runtime}'),
         StatsContainer(iconPath: AppIcons.starIcon, value: '${movie.rating}'),
       ],
     );

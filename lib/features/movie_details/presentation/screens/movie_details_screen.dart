@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/network/api_service.dart';
-
 import 'package:movies/features/movie_details/data/datasources/movie_details_remote_data_source.dart';
-import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
 import 'package:movies/features/movie_details/data/repos/movie_details_repo.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_details_cubit.dart';
 
@@ -21,7 +19,8 @@ class MovieDetailsScreen extends StatelessWidget {
     );
     // var movieData = ModalRoute.of(context)!.settings.arguments as Movie;
     return BlocProvider(
-      create: (context) => movieDetailsCubit..getMoviesDetails(movieId: movie.id),
+      create: (context) =>
+          movieDetailsCubit..getMoviesDetails(movieId: movie.id),
       child: MovieDetailsBlocBuilder(movie: movie),
     );
   }
