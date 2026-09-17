@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
+import 'package:movies/core/routing/app_routes.dart';
 import 'package:movies/core/widgets/movie_card.dart';
 
 class MovieAvailableList extends StatelessWidget {
@@ -23,9 +24,16 @@ class MovieAvailableList extends StatelessWidget {
       itemCount: movies.length,
       itemBuilder: (context, index, realIndex) {
         final movie = movies[index];
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w),
-          child: MovieCard(movie: movie),
+        return InkWell(
+          onTap: () {
+            Navigator.of(
+              context,
+            ).pushNamed(AppRoutes.movieDetailsScreen, arguments: movie);
+          },
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: MovieCard(movie: movie),
+          ),
         );
       },
       options: CarouselOptions(

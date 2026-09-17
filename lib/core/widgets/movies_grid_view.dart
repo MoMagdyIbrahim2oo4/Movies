@@ -7,7 +7,11 @@ class MoviesGridView extends StatelessWidget {
   final List<Movie> movies;
   final int crossAxisCount;
 
-  const MoviesGridView({super.key, required this.movies,required this.crossAxisCount});
+  const MoviesGridView({
+    super.key,
+    required this.movies,
+    required this.crossAxisCount,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/models/movie_model.dart';
-import 'package:movies/features/movie_details/presentation/widgets/cast_section.dart';
-import 'package:movies/features/movie_details/presentation/widgets/genres_section.dart';
-import 'package:movies/features/movie_details/presentation/widgets/movie_header.dart';
-import 'package:movies/features/movie_details/presentation/widgets/screenshots_section.dart';
-import 'package:movies/features/movie_details/presentation/widgets/similar_section.dart';
-import 'package:movies/features/movie_details/presentation/widgets/stats_row.dart';
-import 'package:movies/features/movie_details/presentation/widgets/summary_section.dart';
-import 'package:movies/features/movie_details/presentation/widgets/watch_button.dart';
+import 'package:movies/core/network/api_service.dart';
+
+import 'package:movies/features/movie_details/data/datasources/movie_details_remote_data_source.dart';
+import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
+import 'package:movies/features/movie_details/data/repos/movie_details_repo.dart';
+import 'package:movies/features/movie_details/presentation/cubit/movie_details_cubit.dart';
+
+import 'package:movies/features/movie_details/presentation/widgets/movie_details_bloc_builder.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   final Movie movie;
@@ -16,35 +16,13 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 57.h),
-            child: Column(
-              children: [
-                MovieHeader(movie: movie),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Column(
-                    spacing: 16.h,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      WatchButton(),
-                      StatsRow(movie: movie),
-                      ScreenshotsSection(screenshotUrls: movie.screenshotUrls),
-                      SimilarSection(currentMovie: movie),
-                      SummarySection(summary: movie.summary),
-                      CastSection(cast: movie.cast),
-                      GenresSection(genres: movie.genres),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    var movieDetailsCubit = MovieDetailsCubit(
+      MovieDetailsRepo(MovieDetailsRemoteDataSource(ApiService())),
+    );
+    // var movieData = ModalRoute.of(context)!.settings.arguments as Movie;
+    return BlocProvider(
+      create: (context) => movieDetailsCubit..getMoviesDetails(movieId: movie.id),
+      child: MovieDetailsBlocBuilder(movie: movie),
     );
   }
 }

@@ -4,8 +4,10 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/features/movie_details/presentation/widgets/cast_container.dart';
 
+import '../../data/models/movie_details_response.dart';
+
 class CastSection extends StatelessWidget {
-  final List<CastMember> cast;
+  final List<Cast> cast;
   const CastSection({super.key, required this.cast});
 
   @override
@@ -17,12 +19,7 @@ class CastSection extends StatelessWidget {
       spacing: 8.h,
       children: [
         Text("cast".tr(), style: theme.textTheme.headlineLarge),
-        for (final member in cast)
-          CastContainer(
-            castImagePath: member.imageUrl,
-            castName: member.name,
-            castCharacter: member.character,
-          ),
+        for (final member in cast) CastContainer(castMember: member),
       ],
     );
   }

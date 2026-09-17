@@ -4,8 +4,10 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/widgets/movie_card.dart';
 
+import '../../data/models/movie_details_response.dart';
+
 class SimilarSection extends StatelessWidget {
-  final Movie currentMovie;
+  final MovieDetails currentMovie;
   const SimilarSection({super.key, required this.currentMovie});
 
   @override
