@@ -26,10 +26,15 @@ class CastContainer extends StatelessWidget {
             height: 70.h,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.r),
-              child: CachedNetworkImage(
-                imageUrl: castMember.urlSmallImage!,
-                fit: BoxFit.cover,
-              ),
+              child: castMember.urlSmallImage != null
+                  ? CachedNetworkImage(
+                      imageUrl: castMember.urlSmallImage!,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      color: theme.colorScheme.surface,
+                      child: const Icon(Icons.person),
+                    ),
             ),
           ),
           Expanded(

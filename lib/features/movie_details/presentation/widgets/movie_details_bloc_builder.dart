@@ -15,8 +15,8 @@ import 'package:movies/features/movie_details/presentation/widgets/watch_button.
 import 'genres_section.dart' show GenresSection;
 
 class MovieDetailsBlocBuilder extends StatelessWidget {
-  const MovieDetailsBlocBuilder({super.key, required this.movie,});
-    final Movie movie;
+  const MovieDetailsBlocBuilder({super.key, required this.movie});
+  final Movie movie;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
@@ -50,14 +50,16 @@ class MovieDetailsBlocBuilder extends StatelessWidget {
                               StatsRow(movie: movieDetails),
                               ScreenshotsSection(
                                 screenshotUrls: [
-                                  moviesDetails!.mediumScreenshotImage1!,
-                                  moviesDetails.mediumScreenshotImage2!,
-                                  moviesDetails.mediumScreenshotImage3!,
-                                ]
+                                  moviesDetails!.mediumScreenshotImage1,
+                                  moviesDetails.mediumScreenshotImage2,
+                                  moviesDetails.mediumScreenshotImage3,
+                                ].whereType<String>().toList(),
                               ),
                               SimilarSection(currentMovie: movie),
-                              SummarySection(summary: movieDetails.descriptionFull!),
-                              CastSection(cast: moviesDetails.cast!),
+                              SummarySection(
+                                summary: movieDetails.descriptionFull ?? '',
+                              ),
+                              CastSection(cast: moviesDetails.cast ?? []),
                               GenresSection(genres: movieDetails.genres ?? []),
                             ],
                           ),
@@ -68,10 +70,8 @@ class MovieDetailsBlocBuilder extends StatelessWidget {
                 ),
               ),
             );
-
         }
       },
     );
   }
 }
-
