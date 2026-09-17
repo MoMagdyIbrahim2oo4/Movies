@@ -74,3 +74,4 @@ class MovieDetailsBlocBuilder extends StatelessWidget {
     );
   }
 }
+
