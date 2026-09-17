@@ -6,11 +6,12 @@ import 'package:movies/core/constants/app_Icons.dart';
 import 'package:movies/core/constants/app_colors.dart';
 import 'package:movies/core/constants/app_images.dart';
 import 'package:movies/core/models/movie_model.dart';
+import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
 import 'package:movies/features/movie_details/presentation/widgets/save_button.dart';
 
 /// Poster image + gradient + back/save/play buttons + title/year.
 class MovieHeader extends StatelessWidget {
-  final Movie movie;
+  final MovieDetails movie;
   const MovieHeader({super.key, required this.movie});
 
   @override
@@ -19,7 +20,7 @@ class MovieHeader extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: movie.posterUrl,
+          imageUrl: movie.largeCoverImage!,
           fit: BoxFit.cover,
           width: double.infinity,
         ),
@@ -54,7 +55,7 @@ class MovieHeader extends StatelessWidget {
                 spacing: 15.h,
                 children: [
                   Text(
-                    movie.title,
+                    movie.title ?? "No title",
                     style: theme.textTheme.headlineLarge,
                     textAlign: TextAlign.center,
                   ),

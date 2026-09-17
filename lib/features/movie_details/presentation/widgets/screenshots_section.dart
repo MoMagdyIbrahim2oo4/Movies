@@ -22,7 +22,7 @@ class ScreenshotsSection extends StatelessWidget {
             height: 167.h,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16.r),
-              child: CachedNetworkImage(imageUrl: url, fit: BoxFit.cover),
+              child: CachedNetworkImage(imageUrl: url, fit: BoxFit.fill),
             ),
           ),
       ],

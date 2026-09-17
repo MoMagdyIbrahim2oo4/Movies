@@ -1,18 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/core/models/movie_model.dart';
+
+import '../../data/models/movie_details_response.dart';
 
 class CastContainer extends StatelessWidget {
-  final String castImagePath;
-  final String castName;
-  final String castCharacter;
-  const CastContainer({
-    super.key,
-    required this.castImagePath,
-    required this.castName,
-    required this.castCharacter,
-  });
-
+  const CastContainer({super.key, required this.castMember});
+  final Cast castMember;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,7 +27,7 @@ class CastContainer extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.r),
               child: CachedNetworkImage(
-                imageUrl: castImagePath,
+                imageUrl: castMember.urlSmallImage!,
                 fit: BoxFit.cover,
               ),
             ),
@@ -42,9 +37,12 @@ class CastContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Name : $castName", style: theme.textTheme.labelMedium),
                 Text(
-                  "Character : $castCharacter",
+                  "Name : ${castMember.name}",
+                  style: theme.textTheme.labelMedium,
+                ),
+                Text(
+                  "Character : ${castMember.characterName}",
                   style: theme.textTheme.labelMedium,
                 ),
               ],
