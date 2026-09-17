@@ -11,7 +11,7 @@ import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion
 import '../../data/models/movie_details_response.dart';
 
 class SimilarSection extends StatelessWidget {
-  final MovieDetails currentMovie;
+  final Movie currentMovie;
   const SimilarSection({super.key, required this.currentMovie});
 
   @override

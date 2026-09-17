@@ -6,4 +6,5 @@ class ApiConstants {
   static const String movieId = 'movie_id';
   static const String withCast = "with_cast";
   static const String withImage = "with_images";
+  static const String movieDetails = "/movie_details.json";
 }
