@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
+  final FocusNode? focusNode;
   final String? Function(String?)? validator;
   final bool isObscure;
   final String? obscureCharacter;
@@ -15,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     this.controller,
+    this.focusNode,
     this.validator,
     this.isObscure = false,
     this.obscureCharacter,
@@ -30,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      focusNode: focusNode,
       onChanged: onChanged,
       style: Theme.of(context).textTheme.labelMedium,
       validator: validator,

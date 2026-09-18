@@ -4,28 +4,43 @@ import 'package:movies/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movies/features/main/presentation/screens/main_layout_screen.dart';
 import 'package:movies/features/onboarding/presentation/screens/on_boarding_screen.dart';
 
-class AuthWrapper extends StatelessWidget {
+class AuthWrapper extends StatefulWidget {
   final bool hasSeenOnboarding;
 
   const AuthWrapper({super.key, required this.hasSeenOnboarding});
 
   @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  late final Stream<fb_auth.User?> _authStateChanges;
+
+  @override
+  void initState() {
+    super.initState();
+    _authStateChanges = fb_auth.FirebaseAuth.instance.authStateChanges();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (!hasSeenOnboarding) {
+    if (!widget.hasSeenOnboarding) {
       return const OnBoardingScreen();
     }
 
     return StreamBuilder<fb_auth.User?>(
-      stream: fb_auth.FirebaseAuth.instance.authStateChanges(),
+      stream: _authStateChanges,
       builder: (context, snapshot) {
+        // Retain the current app shell while the stream reconnects after an
+        // unrelated widget-tree rebuild (for example, keyboard metrics).
+        if (snapshot.hasData) {
+          return const MainLayoutScreen();
+        }
+
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
-        }
-
-        if (snapshot.hasData && snapshot.data != null) {
-          return const MainLayoutScreen();
         }
 
         return const LoginScreen();

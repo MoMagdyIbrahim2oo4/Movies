@@ -4,7 +4,12 @@ class MovieDetailsResponse {
   Data? data;
   Meta? meta;
 
-  MovieDetailsResponse({this.status, this.statusMessage, this.data, this.meta});
+  MovieDetailsResponse({
+    this.status,
+    this.statusMessage,
+    this.data,
+    this.meta,
+  });
 
   MovieDetailsResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -15,14 +20,18 @@ class MovieDetailsResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['status'] = status;
     data['status_message'] = statusMessage;
+
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
+
     if (meta != null) {
       data['@meta'] = meta!.toJson();
     }
+
     return data;
   }
 }
@@ -33,14 +42,18 @@ class Data {
   Data({this.movie});
 
   Data.fromJson(Map<String, dynamic> json) {
-    movie = json['movie'] != null ? MovieDetails.fromJson(json['movie']) : null;
+    movie = json['movie'] != null
+        ? MovieDetails.fromJson(json['movie'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     if (movie != null) {
       data['movie'] = movie!.toJson();
     }
+
     return data;
   }
 }
@@ -123,7 +136,10 @@ class MovieDetails {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating'];
+
+    // API ممكن يرجع rating كـ int أو double
+    rating = (json['rating'] as num?)?.toDouble();
+
     runtime = json['runtime'];
     genres = json['genres'].cast<String>();
     likeCount = json['like_count'];
@@ -143,24 +159,30 @@ class MovieDetails {
     largeScreenshotImage1 = json['large_screenshot_image1'];
     largeScreenshotImage2 = json['large_screenshot_image2'];
     largeScreenshotImage3 = json['large_screenshot_image3'];
+
     if (json['cast'] != null) {
       cast = <Cast>[];
+
       json['cast'].forEach((v) {
         cast!.add(Cast.fromJson(v));
       });
     }
+
     if (json['torrents'] != null) {
       torrents = <Torrents>[];
+
       json['torrents'].forEach((v) {
         torrents!.add(Torrents.fromJson(v));
       });
     }
+
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['id'] = id;
     data['url'] = url;
     data['imdb_code'] = imdbCode;
@@ -189,14 +211,18 @@ class MovieDetails {
     data['large_screenshot_image1'] = largeScreenshotImage1;
     data['large_screenshot_image2'] = largeScreenshotImage2;
     data['large_screenshot_image3'] = largeScreenshotImage3;
+
     if (cast != null) {
       data['cast'] = cast!.map((v) => v.toJson()).toList();
     }
+
     if (torrents != null) {
       data['torrents'] = torrents!.map((v) => v.toJson()).toList();
     }
+
     data['date_uploaded'] = dateUploaded;
     data['date_uploaded_unix'] = dateUploadedUnix;
+
     return data;
   }
 }
@@ -207,7 +233,12 @@ class Cast {
   String? urlSmallImage;
   String? imdbCode;
 
-  Cast({this.name, this.characterName, this.urlSmallImage, this.imdbCode});
+  Cast({
+    this.name,
+    this.characterName,
+    this.urlSmallImage,
+    this.imdbCode,
+  });
 
   Cast.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -218,10 +249,12 @@ class Cast {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['name'] = name;
     data['character_name'] = characterName;
     data['url_small_image'] = urlSmallImage;
     data['imdb_code'] = imdbCode;
+
     return data;
   }
 }
@@ -278,6 +311,7 @@ class Torrents {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['url'] = url;
     data['hash'] = hash;
     data['quality'] = quality;
@@ -292,6 +326,7 @@ class Torrents {
     data['size_bytes'] = sizeBytes;
     data['date_uploaded'] = dateUploaded;
     data['date_uploaded_unix'] = dateUploadedUnix;
+
     return data;
   }
 }
@@ -300,7 +335,10 @@ class Meta {
   int? apiVersion;
   String? executionTime;
 
-  Meta({this.apiVersion, this.executionTime});
+  Meta({
+    this.apiVersion,
+    this.executionTime,
+  });
 
   Meta.fromJson(Map<String, dynamic> json) {
     apiVersion = json['api_version'];
@@ -309,8 +347,11 @@ class Meta {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+
     data['api_version'] = apiVersion;
     data['execution_time'] = executionTime;
+
     return data;
   }
 }
+

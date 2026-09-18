@@ -16,33 +16,54 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  String searchItem = '';
+  final _searchController = TextEditingController();
+  final _searchFocusNode = FocusNode();
+  final _searchItem = ValueNotifier<String>('');
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
+    _searchItem.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.r),
-      child: Column(
-        spacing: 13.h,
-        children: [
-          CustomTextFormField(
-            prefixIcon: SvgPicture.asset(
-              AppIcons.searchIcon,
-              height: 10.h,
-              width: 10.w,
+    return MediaQuery.removeViewInsets(
+      context: context,
+      removeBottom: true,
+      child: Padding(
+        padding: EdgeInsets.all(16.r),
+        child: Column(
+          spacing: 13.h,
+          children: [
+            CustomTextFormField(
+              controller: _searchController,
+              focusNode: _searchFocusNode,
+              prefixIcon: SvgPicture.asset(
+                AppIcons.searchIcon,
+                height: 10.h,
+                width: 10.w,
+              ),
+              hintText: "search".tr(),
+              onChanged: (value) => _searchItem.value = value,
             ),
-            hintText: "search".tr(),
-            onChanged: (value) {
-              setState(() {
-                searchItem = value;
-              });
-            },
-          ),
-          Expanded(
-            child: searchItem.isEmpty
-                ? Center(child: Image.asset(AppImages.empty))
-                : MoviesGridView(movies: Movie.movies, crossAxisCount: 2),
-          ),
-        ],
+            Expanded(
+              child: ValueListenableBuilder<String>(
+                valueListenable: _searchItem,
+                builder: (context, searchItem, child) {
+                  return searchItem.isEmpty
+                      ? Center(child: Image.asset(AppImages.empty))
+                      : MoviesGridView(
+                          movies: Movie.movies,
+                          crossAxisCount: 2,
+                        );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

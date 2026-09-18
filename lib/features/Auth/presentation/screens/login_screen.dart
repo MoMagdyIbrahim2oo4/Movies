@@ -26,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
 
   bool isSecure = true;
 
@@ -33,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,6 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return Scaffold(
+      // Keep the form's layout stable when the keyboard changes the view inset.
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -74,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: SvgPicture.asset(AppIcons.emailIcon),
                               ),
                               controller: emailController,
+                              focusNode: emailFocusNode,
                               validator: (value) =>
                                   FormValidation.emailValidation(value),
                             ),
@@ -103,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               isObscure: isSecure,
                               controller: passwordController,
+                              focusNode: passwordFocusNode,
                               validator: (value) =>
                                   FormValidation.passwordValidation(value),
                             ),

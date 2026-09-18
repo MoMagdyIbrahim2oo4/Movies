@@ -30,11 +30,18 @@ class _RegisterScreen extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController() ;
   final TextEditingController confirmPasswordController = TextEditingController() ;
   final TextEditingController phoneController = TextEditingController() ;
+  late AuthProvider authProvider;
 
   bool isSecurePassword = true ;
   bool isSecureConfirmPassword = true ;
 
   String chosenAvatar = AppAvatars.avatar2;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authProvider = Provider.of( context , listen: false ) ;
+  }
 
   @override
   void dispose() {
@@ -44,7 +51,6 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
   @override
     Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of( context , listen: true ) ;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

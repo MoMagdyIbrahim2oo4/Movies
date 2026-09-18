@@ -59,6 +59,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       autoRebuild: false,
+      // Some Android keyboards resize the window. Do not rebuild the app for
+      // that metric change; keep rebuilding for real size changes such as
+      // orientation or split-screen changes.
+      rebuildFactor: (previous, current) {
+        final keyboardChanged =
+            previous.viewInsets.bottom != current.viewInsets.bottom;
+        return !keyboardChanged && previous.size != current.size;
+      },
       builder: (childContext, child) {
         return MaterialApp(
           title: 'Movies',
@@ -68,6 +76,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           // builder: DevicePreview.appBuilder,
           home: AuthWrapper(hasSeenOnboarding: hasSeenOnboarding),
+          // initialRoute: AppRoutes.loginScreen,
           routes: {
             AppRoutes.onboardingScreen: (context) => OnBoardingScreen(),
             AppRoutes.loginScreen: (context) => LoginScreen(),
