@@ -38,28 +38,28 @@ class _MainLayoutState extends State<MainLayoutScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return MediaQuery.removeViewInsets(
-      context: context,
-      removeBottom: true,
-      child: SafeArea(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: theme.scaffoldBackgroundColor,
-          body: Stack(
-            children: [
-              IndexedStack(index: _selectedIndex, children: _screens),
-              Positioned(
-                bottom: 0.h,
-                left: 0.w,
-                right: 0.w,
-                child: CustomBottomNavBar(
-                  selectedIndex: _selectedIndex,
-                  onItemTapped: _onItemTapped,
-                ),
-              ),
-            ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: Stack(
+        children: [
+          SafeArea(
+            bottom: false,
+            child: IndexedStack(index: _selectedIndex, children: _screens),
           ),
-        ),
+          Positioned(
+            bottom: 0.h,
+            left: 0.w,
+            right: 0.w,
+            child: SafeArea(
+              top: false,
+              child: CustomBottomNavBar(
+                selectedIndex: _selectedIndex,
+                onItemTapped: _onItemTapped,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
