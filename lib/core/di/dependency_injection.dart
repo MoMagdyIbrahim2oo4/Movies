@@ -3,6 +3,9 @@ import 'package:movies/core/network/api_service.dart';
 import 'package:movies/features/movie_details/data/datasources/movie_sugesstions_remote_data_source.dart';
 import 'package:movies/features/movie_details/data/repos/movie_sugestions_repo_imp.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion_cubit.dart';
+import 'package:movies/features/search/data/datasources/search_remote_data_source.dart';
+import 'package:movies/features/search/data/repos/search_repo_imp.dart';
+import 'package:movies/features/search/presentation/cubit/search_cubit.dart';
 
 // Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
@@ -13,10 +16,19 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<MovieSugestionsRemoteDataSourceImp>(
     () => MovieSugestionsRemoteDataSourceImp(getIt<ApiService>()),
   );
+  getIt.registerLazySingleton<SearchRemoteDataSourceImp>(
+    () => SearchRemoteDataSourceImp(getIt<ApiService>()),
+  );
   getIt.registerLazySingleton<MovieSugestionsRepoImp>(
     () => MovieSugestionsRepoImp(getIt<MovieSugestionsRemoteDataSourceImp>()),
   );
+  getIt.registerLazySingleton<SearchRepoImp>(
+    () => SearchRepoImp(getIt<SearchRemoteDataSourceImp>()),
+  );
   getIt.registerFactory<MovieSugestionsCubit>(
     () => MovieSugestionsCubit(getIt<MovieSugestionsRepoImp>()),
+  );
+  getIt.registerFactory<SearchCubit>(
+    () => SearchCubit(getIt<SearchRepoImp>()),
   );
 }
