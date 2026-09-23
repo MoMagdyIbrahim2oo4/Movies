@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/constants/app_colors.dart';
 import 'package:movies/core/constants/app_images.dart';
@@ -11,6 +12,7 @@ import 'package:movies/core/widgets/sliver_tab_bar_delegate.dart';
 import 'package:movies/features/Auth/services/firebase_services.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_info_section.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:movies/features/wishlist/cubit/wishlist_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -82,6 +84,11 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   void _onExit() async {
     await fb_auth.FirebaseAuth.instance.signOut();
+    if (mounted) {
+      Navigator.of(
+        context,
+      ).pushNamedAndRemoveUntil(AppRoutes.loginScreen, (route) => false);
+    }
   }
 
   @override
@@ -99,13 +106,17 @@ class _ProfileScreenState extends State<ProfileScreen>
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverToBoxAdapter(
-                child: ProfileInfoSection(
-                  name: userName,
-                  avatarPath: avatar.avatarPath,
-                  wishListCount: 12,
-                  historyCount: 10,
-                  onEditProfile: _onEditProfile,
-                  onExit: _onExit,
+                child: BlocBuilder<WishlistCubit, WishlistState>(
+                  builder: (context, wishlistState) {
+                    return ProfileInfoSection(
+                      name: userName,
+                      avatarPath: avatar.avatarPath,
+                      wishListCount: wishlistState.movies.length,
+                      historyCount: 10, // not your task — left as is
+                      onEditProfile: _onEditProfile,
+                      onExit: _onExit,
+                    );
+                  },
                 ),
               ),
               SliverPersistentHeader(
@@ -120,7 +131,19 @@ class _ProfileScreenState extends State<ProfileScreen>
           body: TabBarView(
             controller: _tabController,
             children: [
-              Center(child: Image.asset(AppImages.empty)),
+              BlocBuilder<WishlistCubit, WishlistState>(
+                builder: (context, wishlistState) {
+                  if (wishlistState.movies.isEmpty) {
+                    return Center(child: Image.asset(AppImages.empty));
+                  }
+                  return MoviesGridView(
+                    movies: wishlistState.movies
+                        .map((m) => m.toMovie())
+                        .toList(),
+                    crossAxisCount: 3,
+                  );
+                },
+              ),
               MoviesGridView(movies: Movie.movies, crossAxisCount: 3),
             ],
           ),

@@ -3,6 +3,8 @@ import 'package:movies/core/network/api_service.dart';
 import 'package:movies/features/movie_details/data/datasources/movie_sugesstions_remote_data_source.dart';
 import 'package:movies/features/movie_details/data/repos/movie_sugestions_repo_imp.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion_cubit.dart';
+import 'package:movies/features/wishlist/cubit/wishlist_cubit.dart';
+import 'package:movies/features/wishlist/data/wishlist_repository.dart';
 
 // Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
@@ -18,5 +20,11 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory<MovieSugestionsCubit>(
     () => MovieSugestionsCubit(getIt<MovieSugestionsRepoImp>()),
+  );
+  getIt.registerLazySingleton<WishlistRepository>(
+    () => FirebaseWishlistRepository(),
+  );
+  getIt.registerFactory<WishlistCubit>(
+    () => WishlistCubit(getIt<WishlistRepository>()),
   );
 }

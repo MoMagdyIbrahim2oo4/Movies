@@ -31,8 +31,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
     return StreamBuilder<fb_auth.User?>(
       stream: _authStateChanges,
       builder: (context, snapshot) {
-        // Retain the current app shell while the stream reconnects after an
-        // unrelated widget-tree rebuild (for example, keyboard metrics).
         if (snapshot.hasData) {
           return const MainLayoutScreen();
         }
@@ -48,4 +46,3 @@ class _AuthWrapperState extends State<AuthWrapper> {
     );
   }
 }
-
