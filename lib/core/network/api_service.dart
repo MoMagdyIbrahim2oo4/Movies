@@ -4,8 +4,8 @@ import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/network/dio_client.dart';
 import 'package:movies/core/network/dio_exception_message.dart';
 import 'package:movies/features/movie_details/data/models/movie_details_response.dart';
-class ApiService {
 
+class ApiService {
   Future<List<Movie>> getMovies() async {
     try {
       final response = await DioClient.instance.get(
@@ -19,17 +19,19 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
+
   Future<MovieDetails?> getMovieDetails({required String movieId}) async {
     try {
       final response = await DioClient.instance.get(
         ApiConstants.movieDetails,
-        queryParameters: {ApiConstants.movieId: movieId,
-          ApiConstants.withCast:true,
-          ApiConstants.withImage:true
+        queryParameters: {
+          ApiConstants.movieId: movieId,
+          ApiConstants.withCast: true,
+          ApiConstants.withImage: true,
         },
       );
       var movieDetailsResponse = MovieDetailsResponse.fromJson(response.data);
@@ -40,6 +42,7 @@ class ApiService {
       throw Exception(e.toString());
     }
   }
+
   Future<List<Movie>> getSuggestions(String movieId) async {
     try {
       final response = await DioClient.instance.get(
@@ -54,8 +57,17 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
+  }
+
+  Future<List<Movie>> getCategoryMovies(String genre) async {
+    final response = await DioClient.instance.get(
+      ApiConstants.listMoviesEndpoint,
+      queryParameters: {ApiConstants.genre: genre},
+    );
+    final movies = MovieResponse.fromJson(response.data);
+    return movies.data?.movies ?? [];
   }
 }

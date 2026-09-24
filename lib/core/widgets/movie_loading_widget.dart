@@ -7,7 +7,7 @@ class MovieLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(color: AppColors.loadingIndicator),
+      child: CircularProgressIndicator(color: AppColors.amber),
     );
   }
 }
