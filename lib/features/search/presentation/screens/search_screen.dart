@@ -59,7 +59,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       context.read<SearchCubit>().search(value);
                     },
                   ),
-
                   Expanded(
                     child: ValueListenableBuilder<String>(
                       valueListenable: _searchItem,
@@ -103,5 +102,3 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-// MoviesGridView(movies: Movie.movies, crossAxisCount: 2);

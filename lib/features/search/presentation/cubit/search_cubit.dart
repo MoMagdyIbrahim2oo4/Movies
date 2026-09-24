@@ -11,17 +11,10 @@ class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this._searchRepo) : super(SearchInitial());
   Future<void> search(String queryItem) async {
     emit(SearchLoading());
-    try {
-      final result = await _searchRepo.search(queryItem);
-      emit(SearchSuccess(result));
-    } catch (error) {
-      String message;
-      if (error is DioException) {
-        message = error.message ?? 'Unknown Error';
-      } else {
-        message = error.toString();
-      }
-      emit(SearchFailure(message));
-    }
+    final result = await _searchRepo.search(queryItem);
+    result.when(
+      success: (movies) => emit(SearchSuccess(movies)),
+      failure: (message) => emit(SearchFailure(message)),
+    );
   }
 }
