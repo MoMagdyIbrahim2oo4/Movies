@@ -38,7 +38,7 @@ class MovieHeader extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                     icon: SvgPicture.asset(AppIcons.backIcon),
                   ),
-                  SaveButton(),
+                  SaveButton(movie: movie),
                 ],
               ),
               Row(
