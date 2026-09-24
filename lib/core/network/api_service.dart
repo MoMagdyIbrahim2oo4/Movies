@@ -19,7 +19,7 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
@@ -54,7 +54,7 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
@@ -72,7 +72,7 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
