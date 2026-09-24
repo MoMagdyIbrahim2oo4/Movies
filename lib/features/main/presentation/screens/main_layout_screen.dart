@@ -20,12 +20,15 @@ class MainLayoutScreen extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayoutScreen> {
   int _selectedIndex = 0;
+  late final MovieCategoryCubit _movieCategoryCubit;
 
   late final List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
+    _movieCategoryCubit = getIt<MovieCategoryCubit>()
+      ..movieCategory(CategoryModel.categories.first.genrsId);
     _screens = [
       HomeScreen(onBrowse: () => _onItemTapped(2)),
       const SearchScreen(),
@@ -35,19 +38,33 @@ class _MainLayoutState extends State<MainLayoutScreen> {
   }
 
   void _onItemTapped(int index) {
+    final returningToHome = index == 0 && _selectedIndex != 0;
     setState(() {
       _selectedIndex = index;
     });
+
+    if (returningToHome) {
+      final categories = CategoryModel.categories;
+      final currentIndex = categories.indexWhere(
+        (category) =>
+            category.genrsId == _movieCategoryCubit.selectedCategoryId,
+      );
+      final nextIndex = (currentIndex + 1) % categories.length;
+      _movieCategoryCubit.movieCategory(categories[nextIndex].genrsId);
+    }
+  }
+
+  @override
+  void dispose() {
+    _movieCategoryCubit.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BlocProvider(
-      create: (context) => getIt<MovieCategoryCubit>()
-        ..movieCategory(
-          CategoryModel.categories.first.genrsId,
-        ),
+    return BlocProvider.value(
+      value: _movieCategoryCubit,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: theme.scaffoldBackgroundColor,
