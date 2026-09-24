@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/features/home/data/repositories/movie_repository.dart';
 import 'package:movies/features/home/presentation/cubit/home_state.dart';
@@ -10,15 +9,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> loadMovies() async {
     emit(const HomeLoading());
-    try {
-      final movies = await repository.getMovies();
-      if (isClosed) return;
-      emit(HomeSuccess(movies));
-    } on DioException catch (e) {
-      String errorMessage = e.message ?? "UnKnown";
-      emit(HomeFailure(errorMessage));
-    } on FormatException catch (error) {
-      emit(HomeFailure(error.message.toString()));
-    }
+    final result = await repository.getMovies();
+    if (isClosed) return;
+    result.when(
+      success: (movies) => emit(HomeSuccess(movies)),
+      failure: (message) => emit(HomeFailure(message)),
+    );
   }
 }
