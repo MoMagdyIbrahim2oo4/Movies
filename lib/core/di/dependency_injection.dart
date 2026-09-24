@@ -6,6 +6,18 @@ import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion
 import 'package:movies/features/wishlist/cubit/wishlist_cubit.dart';
 import 'package:movies/features/wishlist/data/wishlist_repository.dart';
 
+import '../../features/browse/data/datasources/movie_category_remote_data_source.dart';
+import '../../features/browse/data/repos/movie_category_repo.dart';
+import '../../features/browse/data/repos/movie_category_repo_impl.dart';
+import '../../features/browse/presentation/cubit/movie_category_cubit.dart';
+import '../../features/home/data/datasources/movie_remote_data_source.dart';
+import '../../features/home/data/repositories/movie_repo_impl.dart';
+import '../../features/home/data/repositories/movie_repository.dart';
+import '../../features/home/presentation/cubit/home_cubit.dart';
+import '../../features/search/data/datasources/search_remote_data_source.dart';
+import '../../features/search/data/repos/search_repo_imp.dart';
+import '../../features/search/presentation/cubit/search_cubit.dart';
+
 // Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
 
