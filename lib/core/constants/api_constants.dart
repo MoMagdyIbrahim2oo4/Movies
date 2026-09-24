@@ -8,4 +8,5 @@ class ApiConstants {
   static const String movieDetails = "/api/v2/movie_details.json";
   static const String movieSugestions = "/api/v2/movie_suggestions.json";
   static const String queryItem = "query_term";
+  static const String genre = "genre";
 }

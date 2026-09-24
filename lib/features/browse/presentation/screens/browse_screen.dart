@@ -1,58 +1,22 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:movies/core/models/movie_model.dart';
-import 'package:movies/core/widgets/movies_grid_view.dart';
-import 'package:movies/features/browse/presentation/widgets/categories.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/di/dependency_injection.dart';
+import 'package:movies/features/browse/data/models/category_model.dart';
+import 'package:movies/features/browse/presentation/cubit/movie_category_cubit.dart';
 
-class BrowseScreen extends StatefulWidget {
+import '../widgets/category_bloc_builder.dart';
+
+class BrowseScreen extends StatelessWidget {
   const BrowseScreen({super.key});
 
   @override
-  State<BrowseScreen> createState() => _BrowseScreenState();
-}
-
-class _BrowseScreenState extends State<BrowseScreen> {
-  final List<String> categories = [
-    'Action'.tr(),
-    'Adventure'.tr(),
-    'Animation'.tr(),
-    'Biography'.tr(),
-  ];
-
-  int selectedindex = 0;
-
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.r),
-      child: Column(
-        spacing: 13.h,
-        children: [
-          SizedBox(
-            height: 50.h,
-            child: ListView.separated(
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedindex = index;
-                  });
-                },
-                child: Categories(
-                  isSelected: selectedindex == index,
-                  category: categories[index],
-                ),
-              ),
-              itemCount: categories.length,
-              separatorBuilder: (context, index) => SizedBox(width: 10.w),
-              scrollDirection: Axis.horizontal,
-            ),
-          ),
-          Expanded(
-            child: MoviesGridView(movies: Movie.movies, crossAxisCount: 2),
-          ),
-        ],
-      ),
+    return BlocProvider(
+      create: (context) => getIt<MovieCategoryCubit>()
+        ..movieCategory(
+          CategoryModel.categories.first.genrsId,
+        ),
+      child: const CategoryBlocBuilder(),
     );
   }
 }

@@ -19,7 +19,7 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
@@ -54,12 +54,11 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
-
-    Future<List<Movie>> search(String queryItem) async {
+  Future<List<Movie>> search(String queryItem) async {
     try {
       final response = await DioClient.instance.get(
         ApiConstants.listMoviesEndpoint,
@@ -73,8 +72,17 @@ class ApiService {
         response: error.response,
         type: error.type,
         error: error.error,
-        message: DioExceptionMessage.from(error),
+        message: DioExceptionMessage.from(error).message,
       );
     }
   }
+  Future<List<Movie>> getCategoryMovies(String genre) async {
+    final response = await DioClient.instance.get(
+      ApiConstants.listMoviesEndpoint,
+      queryParameters: {ApiConstants.genre: genre},
+    );
+    final movies = MovieResponse.fromJson(response.data);
+    return movies.data?.movies ?? [];
+  }
+
 }
