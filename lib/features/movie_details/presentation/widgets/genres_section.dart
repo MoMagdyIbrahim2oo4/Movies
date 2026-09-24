@@ -9,7 +9,7 @@ class GenresSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (genres == null||genres!.isEmpty) return const SizedBox.shrink();
+    if (genres == null || genres!.isEmpty) return const SizedBox.shrink();
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

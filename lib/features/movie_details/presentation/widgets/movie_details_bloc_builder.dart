@@ -32,11 +32,14 @@ class MovieDetailsBlocBuilder extends StatelessWidget {
               return const Center(child: Text('No details available'));
             }
             final moviesDetails = state.movieDetails;
-            return SafeArea(
-              child: Scaffold(
-                body: SingleChildScrollView(
+            return Scaffold(
+              body: SafeArea(
+                bottom: false,
+                child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 57.h),
+                    padding: EdgeInsets.only(
+                      bottom: 57.h + MediaQuery.of(context).padding.bottom,
+                    ),
                     child: Column(
                       children: [
                         MovieHeader(movie: movieDetails),
