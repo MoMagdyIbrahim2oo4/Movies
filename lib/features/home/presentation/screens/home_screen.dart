@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/core/network/api_service.dart';
-import 'package:movies/features/home/data/datasources/movie_remote_data_source.dart';
-import 'package:movies/features/home/data/repositories/movie_repo_impl.dart';
+import 'package:movies/core/di/dependency_injection.dart';
 import 'package:movies/features/home/presentation/cubit/home_cubit.dart';
 import 'package:movies/features/home/presentation/widgets/bloc_builder_home.dart';
 
@@ -14,9 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeCubit(
-        repository: MovieRepoImpl(MovieRemoteDataSource(ApiService())),
-      )..loadMovies(),
+      create: (_) => getIt<HomeCubit>()..loadMovies(),
       child: BlocBuilderHome(onBrowse: onBrowse),
     );
   }

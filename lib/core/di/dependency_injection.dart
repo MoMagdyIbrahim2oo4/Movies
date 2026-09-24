@@ -4,6 +4,10 @@ import 'package:movies/features/browse/data/datasources/movie_category_remote_da
 import 'package:movies/features/browse/data/repos/movie_category_repo.dart';
 import 'package:movies/features/browse/data/repos/movie_category_repo_impl.dart';
 import 'package:movies/features/browse/presentation/cubit/movie_category_cubit.dart';
+import 'package:movies/features/home/data/datasources/movie_remote_data_source.dart';
+import 'package:movies/features/home/data/repositories/movie_repo_impl.dart';
+import 'package:movies/features/home/data/repositories/movie_repository.dart';
+import 'package:movies/features/home/presentation/cubit/home_cubit.dart';
 import 'package:movies/features/movie_details/data/datasources/movie_sugesstions_remote_data_source.dart';
 import 'package:movies/features/movie_details/data/repos/movie_sugestions_repo_imp.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_sugestion_cubit.dart';
@@ -17,25 +21,44 @@ final getIt = GetIt.instance;
 // 2. Register them at app startup
 Future<void> configureDependencies() async {
   getIt.registerSingleton<ApiService>(ApiService());
+
+  // Movie Details
   getIt.registerLazySingleton<MovieSugestionsRemoteDataSourceImp>(
     () => MovieSugestionsRemoteDataSourceImp(getIt<ApiService>()),
-  );
-  getIt.registerLazySingleton<SearchRemoteDataSourceImp>(
-    () => SearchRemoteDataSourceImp(getIt<ApiService>()),
   );
   getIt.registerLazySingleton<MovieSugestionsRepoImp>(
     () => MovieSugestionsRepoImp(getIt<MovieSugestionsRemoteDataSourceImp>()),
   );
-  getIt.registerLazySingleton<SearchRepoImp>(
-    () => SearchRepoImp(getIt<SearchRemoteDataSourceImp>()),
-  );
   getIt.registerFactory<MovieSugestionsCubit>(
     () => MovieSugestionsCubit(getIt<MovieSugestionsRepoImp>()),
+  );
+
+  // Search
+  getIt.registerLazySingleton<SearchRemoteDataSourceImp>(
+    () => SearchRemoteDataSourceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<SearchRepoImp>(
+    () => SearchRepoImp(getIt<SearchRemoteDataSourceImp>()),
   );
   getIt.registerFactory<SearchCubit>(
     () => SearchCubit(getIt<SearchRepoImp>()),
   );
-  getIt.registerSingleton<MovieCategoryRemoteDataSource>(MovieCategoryRemoteDataSource(getIt()));
+
+  // Browse Category
+  getIt.registerSingleton<MovieCategoryRemoteDataSource>(
+    MovieCategoryRemoteDataSource(getIt()),
+  );
   getIt.registerSingleton<MovieCategoryRepo>(MovieCategoryRepoImpl(getIt()));
-  getIt.registerFactory(()=> MovieCategoryCubit(getIt()));
+  getIt.registerFactory(() => MovieCategoryCubit(getIt()));
+
+  // Home
+  getIt.registerLazySingleton<MovieDataSource>(
+    () => MovieRemoteDataSource(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<MovieRepository>(
+    () => MovieRepoImpl(getIt<MovieDataSource>()),
+  );
+  getIt.registerFactory<HomeCubit>(
+    () => HomeCubit(repository: getIt<MovieRepository>()),
+  );
 }

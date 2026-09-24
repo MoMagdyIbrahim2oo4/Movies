@@ -13,7 +13,8 @@ class MovieCategoryCubit extends Cubit<MovieCategoryState> {
 
   String _selectedCategoryId = CategoryModel.categories.first.genrsId;
   String get selectedCategoryId => _selectedCategoryId;
-
+    // String _categoryName = CategoryModel.categories.first.categoryName;
+    // String get categoryName => _categoryName;
   Future<void> movieCategory(String categoryId) async {
     _selectedCategoryId = categoryId;
     emit(MovieCategoryLoadingState());
