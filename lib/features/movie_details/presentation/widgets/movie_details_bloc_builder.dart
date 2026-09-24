@@ -49,7 +49,7 @@ class MovieDetailsBlocBuilder extends StatelessWidget {
                             spacing: 16.h,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              WatchButton(),
+                              WatchButton(movie: movie),
                               StatsRow(movie: movieDetails),
                               ScreenshotsSection(
                                 screenshotUrls: [

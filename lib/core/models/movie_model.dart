@@ -150,6 +150,16 @@ class Movie {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'large_cover_image': posterUrl,
+      'rating': rating,
+      'year': year,
+    };
+  }
+
   static final List<Movie> movies = [
     Movie(
       id: '1',

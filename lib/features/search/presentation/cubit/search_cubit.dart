@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/features/search/data/repos/search_repo.dart';
