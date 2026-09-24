@@ -18,7 +18,11 @@ class CategoryBlocBuilder extends StatelessWidget {
         final categoriesList = CategoryModel.categories;
 
         return Padding(
-          padding: EdgeInsets.all(16.r),
+          padding: EdgeInsets.only(
+                top: 16.h ,
+                right : 16.w ,
+                left : 16.w ,
+              ),
           child: Column(
             spacing: 13.h,
             children: [

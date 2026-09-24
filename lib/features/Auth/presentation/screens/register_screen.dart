@@ -38,7 +38,6 @@ class _RegisterScreen extends State<RegisterScreen> {
   String chosenAvatar = AppAvatars.avatar2;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     authProvider = Provider.of( context , listen: false ) ;
   }

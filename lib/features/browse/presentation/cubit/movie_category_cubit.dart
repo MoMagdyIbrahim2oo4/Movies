@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+﻿import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/features/browse/data/models/category_model.dart';
 import 'package:movies/features/browse/data/repos/movie_category_repo.dart';
@@ -22,6 +22,7 @@ class MovieCategoryCubit extends Cubit<MovieCategoryState> {
     final moviesCategory = await movieCategoryRepo.getCategoryMovies(
       categoryId,
     );
+    if (isClosed) return;
     moviesCategory.when(
       success: (categories) => emit(MovieCategorySuccessState(categories)),
       failure: (message) => emit(MovieCategoryFailureState(message)),
