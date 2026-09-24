@@ -14,8 +14,10 @@ import 'package:movies/features/search/data/datasources/search_remote_data_sourc
 import 'package:movies/features/search/data/repos/search_repo_imp.dart';
 import 'package:movies/features/search/presentation/cubit/search_cubit.dart';
 
+// Create a global instance (or use GetIt.instance)
 final getIt = GetIt.instance;
 
+// 2. Register them at app startup
 Future<void> configureDependencies() async {
   getIt.registerSingleton<ApiService>(ApiService());
   getIt.registerLazySingleton<MovieSugestionsRemoteDataSourceImp>(
@@ -34,9 +36,13 @@ Future<void> configureDependencies() async {
     () => MovieSugestionsCubit(getIt<MovieSugestionsRepoImp>()),
   );
   getIt.registerFactory<SearchCubit>(
-    () => SearchCubit(getIt<SearchRepoImp>()),
+        () => SearchCubit(getIt<SearchRepoImp>()),
   );
-  getIt.registerSingleton<MovieCategoryRemoteDataSource>(MovieCategoryRemoteDataSource(getIt()));
+
+  // Browse Category
+  getIt.registerSingleton<MovieCategoryRemoteDataSource>(
+    MovieCategoryRemoteDataSource(getIt()),
+  );
   getIt.registerSingleton<MovieCategoryRepo>(MovieCategoryRepoImpl(getIt()));
   getIt.registerFactory(()=> MovieCategoryCubit(getIt()));
 
@@ -48,5 +54,17 @@ Future<void> configureDependencies() async {
   );
   getIt.registerFactory<HistoryCubit>(
     () => HistoryCubit(getIt<HistoryRepo>()),
+  );
+  getIt.registerFactory(() => MovieCategoryCubit(getIt()));
+
+  // Home
+  getIt.registerLazySingleton<MovieDataSource>(
+        () => MovieRemoteDataSource(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<MovieRepository>(
+        () => MovieRepoImpl(getIt<MovieDataSource>()),
+  );
+  getIt.registerFactory<HomeCubit>(
+        () => HomeCubit(repository: getIt<MovieRepository>()),
   );
 }

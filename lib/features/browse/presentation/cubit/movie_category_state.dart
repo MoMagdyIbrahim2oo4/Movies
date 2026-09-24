@@ -15,6 +15,5 @@ final class MovieCategoryFailureState extends MovieCategoryState {
 
 final class MovieCategorySuccessState extends MovieCategoryState {
   final List<Movie> categories;
-
   MovieCategorySuccessState(this.categories);
 }

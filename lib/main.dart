@@ -1,6 +1,7 @@
 ﻿import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/di/dependency_injection.dart';
 import 'package:movies/core/models/movie_model.dart';
@@ -18,6 +19,7 @@ import 'package:movies/features/onboarding/presentation/screens/on_boarding_scre
 import 'package:movies/features/updateProfile/presentation/screens/update_profile_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/features/wishlist/cubit/wishlist_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:movies/features/history/presentation/cubit/history_cubit.dart';
 import 'firebase_options.dart';
@@ -59,44 +61,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilPlusInit(
-      designSize: const Size(430, 932),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      autoRebuild: false,
-      // Some Android keyboards resize the window. Do not rebuild the app for
-      // that metric change; keep rebuilding for real size changes such as
-      // orientation or split-screen changes.
-      rebuildFactor: (previous, current) {
-        final keyboardChanged =
-            previous.viewInsets.bottom != current.viewInsets.bottom;
-        return !keyboardChanged && previous.size != current.size;
-      },
-      builder: (childContext, child) {
-        return MaterialApp(
-          title: 'Movies',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          // builder: DevicePreview.appBuilder,
-          home: AuthWrapper(hasSeenOnboarding: hasSeenOnboarding),
-          // initialRoute: AppRoutes.loginScreen,
-          routes: {
-            AppRoutes.onboardingScreen: (context) => OnBoardingScreen(),
-            AppRoutes.loginScreen: (context) => LoginScreen(),
-            AppRoutes.registerScreen: (context) => RegisterScreen(),
-            AppRoutes.forgetPasswordScreen: (context) => ForgetPasswordScreen(),
-            AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
-            AppRoutes.mainLayoutScreen: (context) => MainLayoutScreen(),
-            AppRoutes.movieDetailsScreen: (context) => MovieDetailsScreen(
-              movie: ModalRoute.of(context)!.settings.arguments as Movie,
-            ),
-          },
-          darkTheme: DarkTheme.dark,
-          themeMode: ThemeMode.dark,
-        );
-      },
+    return BlocProvider(
+      create: (_) => getIt<WishlistCubit>(),
+      child: ScreenUtilPlusInit(
+        designSize: const Size(430, 932),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        autoRebuild: false,
+        rebuildFactor: (previous, current) {
+          final keyboardChanged =
+              previous.viewInsets.bottom != current.viewInsets.bottom;
+          return !keyboardChanged && previous.size != current.size;
+        },
+        builder: (childContext, child) {
+          return MaterialApp(
+            title: 'Movies',
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            home: AuthWrapper(hasSeenOnboarding: hasSeenOnboarding),
+            routes: {
+              AppRoutes.onboardingScreen: (context) => OnBoardingScreen(),
+              AppRoutes.loginScreen: (context) => LoginScreen(),
+              AppRoutes.registerScreen: (context) => RegisterScreen(),
+              AppRoutes.forgetPasswordScreen: (context) =>
+                  ForgetPasswordScreen(),
+              AppRoutes.updateProfileScreen: (context) => UpdateProfileScreen(),
+              AppRoutes.mainLayoutScreen: (context) => MainLayoutScreen(),
+              AppRoutes.movieDetailsScreen: (context) => MovieDetailsScreen(
+                movie: ModalRoute.of(context)!.settings.arguments as Movie,
+              ),
+            },
+            darkTheme: DarkTheme.dark,
+            themeMode: ThemeMode.dark,
+          );
+        },
+      ),
     );
   }
 }
