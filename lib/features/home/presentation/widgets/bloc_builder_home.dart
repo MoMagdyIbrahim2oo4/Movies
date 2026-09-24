@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/core/widgets/movie_loading_widget.dart';
+import 'package:movies/features/browse/presentation/cubit/movie_category_cubit.dart';
 import 'package:movies/features/home/presentation/cubit/home_cubit.dart';
 import 'package:movies/features/home/presentation/cubit/home_state.dart';
 import 'package:movies/features/home/presentation/widgets/home_error_view.dart';
@@ -21,9 +23,7 @@ class BlocBuilderHome extends StatelessWidget {
           slivers: [
             switch (state) {
               HomeLoading() => const SliverFillRemaining(
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
+                child: MovieLoadingWidget(),
               ),
               HomeFailure(:final message) => SliverFillRemaining(
                 child: HomeErrorView(
@@ -34,8 +34,16 @@ class BlocBuilderHome extends StatelessWidget {
               HomeSuccess(:final movies) => SliverList(
                 delegate: SliverChildListDelegate([
                   HomeHeroCarousel(movies: movies),
-                  MovieSectionTitle(title: 'Action', onSeeMore: onBrowse),
-                  MovieCategoryList(movies: movies),
+                  BlocBuilder<MovieCategoryCubit, MovieCategoryState>(
+                    builder: (context, categoryState) {
+                      final categoryCubit = context.read<MovieCategoryCubit>();
+                      return MovieSectionTitle(
+                        title: categoryCubit.selectedCategoryId,
+                        onSeeMore: onBrowse,
+                      );
+                    },
+                  ),
+                  const MovieCategoryList(),
                   SizedBox(height: 24.h),
                 ]),
               ),

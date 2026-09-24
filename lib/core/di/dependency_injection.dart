@@ -22,9 +22,38 @@ Future<void> configureDependencies() async {
     () => MovieSugestionsCubit(getIt<MovieSugestionsRepoImp>()),
   );
   getIt.registerLazySingleton<WishlistRepository>(
-    () => FirebaseWishlistRepository(),
+        () => FirebaseWishlistRepository(),
   );
   getIt.registerFactory<WishlistCubit>(
-    () => WishlistCubit(getIt<WishlistRepository>()),
+        () => WishlistCubit(getIt<WishlistRepository>()),
+  );
+
+  // Search
+  getIt.registerLazySingleton<SearchRemoteDataSourceImp>(
+        () => SearchRemoteDataSourceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<SearchRepoImp>(
+        () => SearchRepoImp(getIt<SearchRemoteDataSourceImp>()),
+  );
+  getIt.registerFactory<SearchCubit>(
+        () => SearchCubit(getIt<SearchRepoImp>()),
+  );
+
+  // Browse Category
+  getIt.registerSingleton<MovieCategoryRemoteDataSource>(
+    MovieCategoryRemoteDataSource(getIt()),
+  );
+  getIt.registerSingleton<MovieCategoryRepo>(MovieCategoryRepoImpl(getIt()));
+  getIt.registerFactory(() => MovieCategoryCubit(getIt()));
+
+  // Home
+  getIt.registerLazySingleton<MovieDataSource>(
+        () => MovieRemoteDataSource(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<MovieRepository>(
+        () => MovieRepoImpl(getIt<MovieDataSource>()),
+  );
+  getIt.registerFactory<HomeCubit>(
+        () => HomeCubit(repository: getIt<MovieRepository>()),
   );
 }

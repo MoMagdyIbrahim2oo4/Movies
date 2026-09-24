@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:movies/features/browse/data/models/category_model.dart';
 
 class Categories extends StatelessWidget {
-  final String category;
+  final CategoryModel category;
   final bool isSelected;
   const Categories({
     super.key,
@@ -18,11 +19,11 @@ class Categories extends StatelessWidget {
         color: isSelected
             ? Theme.of(context).colorScheme.onSecondary
             : Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadiusGeometry.all(Radius.circular(16.r)),
+        borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: Theme.of(context).colorScheme.onSecondary),
       ),
       child: Text(
-        category,
+        category.categoryName,
         style: isSelected
             ? Theme.of(context).textTheme.displayMedium
             : Theme.of(context).textTheme.displaySmall,

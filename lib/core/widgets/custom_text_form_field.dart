@@ -31,9 +31,13 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapUpOutside: (details) {
+        FocusScope.of(context).unfocus();
+      },
       controller: controller,
       focusNode: focusNode,
       onChanged: onChanged,
+      cursorColor: Theme.of(context).colorScheme.onSecondary,
       style: Theme.of(context).textTheme.labelMedium,
       validator: validator,
       obscureText: isObscure,
