@@ -30,7 +30,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final bool hasSeenOnboarding = await OnboardingPrefs.hasSeenOnboarding();
-// solving
+// solving github problems
   runApp(
     MultiProvider(
       providers: [
