@@ -40,7 +40,11 @@ class _SearchScreenState extends State<SearchScreen> {
             context: context,
             removeBottom: true,
             child: Padding(
-              padding: EdgeInsets.all(16.r),
+              padding: EdgeInsets.only(
+                top: 16.h ,
+                right : 16.w ,
+                left : 16.w ,
+              ),
               child: Column(
                 spacing: 13.h,
                 children: [

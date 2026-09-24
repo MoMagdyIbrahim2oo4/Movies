@@ -1,15 +1,16 @@
-﻿import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:movies/core/constants/app_colors.dart';
 import 'package:movies/core/constants/app_images.dart';
 import 'package:movies/core/models/avater_model.dart';
-import 'package:movies/core/models/movie_model.dart';
 import 'package:movies/core/routing/app_routes.dart';
 import 'package:movies/core/widgets/movies_grid_view.dart';
 import 'package:movies/core/widgets/sliver_tab_bar_delegate.dart';
 import 'package:movies/features/Auth/services/firebase_services.dart';
+import 'package:movies/features/history/presentation/cubit/history_cubit.dart';
+import 'package:movies/features/history/presentation/cubit/history_state.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_info_section.dart';
 import 'package:movies/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:movies/features/wishlist/cubit/wishlist_cubit.dart';
@@ -67,6 +68,9 @@ class _ProfileScreenState extends State<ProfileScreen>
     avatar = avatars[0];
     _tabController = TabController(length: 2, vsync: this);
     _fetchUserData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HistoryCubit>().fetchHistory();
+    });
   }
 
   @override
@@ -102,53 +106,78 @@ class _ProfileScreenState extends State<ProfileScreen>
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
-                child: BlocBuilder<WishlistCubit, WishlistState>(
-                  builder: (context, wishlistState) {
-                    return ProfileInfoSection(
-                      name: userName,
-                      avatarPath: avatar.avatarPath,
-                      wishListCount: wishlistState.movies.length,
-                      historyCount: 10, // not your task — left as is
-                      onEditProfile: _onEditProfile,
-                      onExit: _onExit,
-                    );
-                  },
-                ),
+        child: BlocBuilder<HistoryCubit, HistoryState>(
+          builder: (context, historyState) {
+            final int historyCount = historyState is HistoryLoaded
+                ? historyState.movies.length
+                : 0;
+            return NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverToBoxAdapter(
+                    child: BlocBuilder<WishlistCubit, WishlistState>(
+                      builder: (context, wishlistState) {
+                        return ProfileInfoSection(
+                          name: userName,
+                          avatarPath: avatar.avatarPath,
+                          wishListCount: wishlistState.movies.length,
+                          historyCount: historyCount,
+                          onEditProfile: _onEditProfile,
+                          onExit: _onExit,
+                        );
+                      },
+                    ),
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: SliverTabBarDelegate(
+                      height: 90.h,
+                      child: ProfileTabBar(tabController: _tabController),
+                    ),
+                  ),
+                ];
+              },
+              body: TabBarView(
+                controller: _tabController,
+                children: [
+                  BlocBuilder<WishlistCubit, WishlistState>(
+                    builder: (context, wishlistState) {
+                      if (wishlistState.movies.isEmpty) {
+                        return Center(child: Image.asset(AppImages.empty));
+                      }
+                      return MoviesGridView(
+                        movies: wishlistState.movies
+                            .map((m) => m.toMovie())
+                            .toList(),
+                        crossAxisCount: 3,
+                      );
+                    },
+                  ),
+                  _buildHistoryTab(historyState),
+                ],
               ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: SliverTabBarDelegate(
-                  height: 90.h,
-                  child: ProfileTabBar(tabController: _tabController),
-                ),
-              ),
-            ];
+            );
           },
-          body: TabBarView(
-            controller: _tabController,
-            children: [
-              BlocBuilder<WishlistCubit, WishlistState>(
-                builder: (context, wishlistState) {
-                  if (wishlistState.movies.isEmpty) {
-                    return Center(child: Image.asset(AppImages.empty));
-                  }
-                  return MoviesGridView(
-                    movies: wishlistState.movies
-                        .map((m) => m.toMovie())
-                        .toList(),
-                    crossAxisCount: 3,
-                  );
-                },
-              ),
-              MoviesGridView(movies: Movie.movies, crossAxisCount: 3),
-            ],
-          ),
         ),
       ),
     );
+  }
+
+  Widget _buildHistoryTab(HistoryState state) {
+    if (state is HistoryLoading) {
+      return const Center(
+        child: CircularProgressIndicator(color: AppColors.amber),
+      );
+    }
+    if (state is HistoryLoaded) {
+      if (state.movies.isEmpty) {
+        return Center(child: Image.asset(AppImages.empty));
+      }
+      return MoviesGridView(
+        movies: state.movies,
+        crossAxisCount: 3,
+      );
+    }
+    return Center(child: Image.asset(AppImages.empty));
   }
 }

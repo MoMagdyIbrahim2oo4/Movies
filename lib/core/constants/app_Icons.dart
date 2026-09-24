@@ -1,4 +1,3 @@
-// ignore: file_names
 class AppIcons {
   static const String _initialPath = 'assets/icons/';
   static const String emailIcon = '${_initialPath}emailIcon.svg';
