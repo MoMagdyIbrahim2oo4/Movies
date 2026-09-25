@@ -17,6 +17,9 @@ class DarkTheme {
       surface: AppColors.darkCharcoalGray,
       onSurface: Colors.transparent,
     ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionHandleColor: AppColors.amber,
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.darkGray,
       centerTitle: true,
